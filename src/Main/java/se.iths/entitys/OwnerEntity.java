@@ -1,6 +1,8 @@
 package se.iths.entitys;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class OwnerEntity {
@@ -13,8 +15,16 @@ public class OwnerEntity {
     private String phoneNumber;
     private String age;
 
+    @OneToMany(mappedBy = "Owners", cascade = CascadeType.ALL)
+    private List<TeamEntity> teams = new ArrayList<>();
 
+    public List<TeamEntity> getTeams() {
+        return teams;
+    }
 
+    public void setTeams(List<TeamEntity> teams) {
+        this.teams = teams;
+    }
 
     public Long getId() {
         return id;

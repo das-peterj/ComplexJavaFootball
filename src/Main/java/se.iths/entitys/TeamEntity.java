@@ -1,9 +1,10 @@
 package se.iths.entitys;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class TeamEntity {
@@ -13,6 +14,22 @@ public class TeamEntity {
     private Long id;
     private String name;
     private String teamValue;
+
+    @ManyToOne
+    private LeagueEntity leagueEntity;
+
+    @ManyToOne
+    private OwnerEntity ownerEntity;
+
+    @OneToMany(mappedBy = "teams", cascade = CascadeType.ALL)
+    private List<PlayerEntity> players = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private ManagerEntity managerEntity;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<SponsorEntity> sponsors = new HashSet<>();
+
 
     public Long getId() {
         return id;
@@ -36,5 +53,45 @@ public class TeamEntity {
 
     public void setTeamValue(String teamValue) {
         this.teamValue = teamValue;
+    }
+
+    public LeagueEntity getLeagueEntity() {
+        return leagueEntity;
+    }
+
+    public void setLeagueEntity(LeagueEntity leagueEntity) {
+        this.leagueEntity = leagueEntity;
+    }
+
+    public OwnerEntity getOwnerEntity() {
+        return ownerEntity;
+    }
+
+    public void setOwnerEntity(OwnerEntity ownerEntity) {
+        this.ownerEntity = ownerEntity;
+    }
+
+    public List<PlayerEntity> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<PlayerEntity> players) {
+        this.players = players;
+    }
+
+    public ManagerEntity getManagerEntity() {
+        return managerEntity;
+    }
+
+    public void setManagerEntity(ManagerEntity managerEntity) {
+        this.managerEntity = managerEntity;
+    }
+
+    public Set<SponsorEntity> getSponsors() {
+        return sponsors;
+    }
+
+    public void setSponsors(Set<SponsorEntity> sponsors) {
+        this.sponsors = sponsors;
     }
 }

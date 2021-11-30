@@ -1,9 +1,7 @@
 package se.iths.entitys;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class SponsorEntity {
@@ -12,6 +10,17 @@ public class SponsorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @ManyToMany(mappedBy = "Sponsors")
+    private Set<TeamEntity> teamEntities;
+
+    public Set<TeamEntity> getTeamEntities() {
+        return teamEntities;
+    }
+
+    public void setTeamEntities(Set<TeamEntity> teamEntities) {
+        this.teamEntities = teamEntities;
+    }
 
     public Long getId() {
         return id;

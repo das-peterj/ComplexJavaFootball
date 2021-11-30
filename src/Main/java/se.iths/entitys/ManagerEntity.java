@@ -1,9 +1,8 @@
 package se.iths.entitys;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class ManagerEntity {
 
     @Id
@@ -13,6 +12,18 @@ public class ManagerEntity {
     private String phoneNumber;
     private String age;
     private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private TeamEntity teamEntity;
+
+
+    public TeamEntity getTeamEntity() {
+        return teamEntity;
+    }
+
+    public void setTeamEntity(TeamEntity teamEntity) {
+        this.teamEntity = teamEntity;
+    }
 
     public Long getId() {
         return id;

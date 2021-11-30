@@ -1,9 +1,10 @@
 package se.iths.entitys;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class LeagueEntity {
 
     @Id
@@ -12,6 +13,16 @@ public class LeagueEntity {
     private String leagueName;
     private String country;
 
+    @OneToMany(mappedBy = "leagues", cascade = CascadeType.ALL)
+    private List<TeamEntity> teams = new ArrayList<>();
+
+    public List<TeamEntity> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<TeamEntity> teams) {
+        this.teams = teams;
+    }
 
     public Long getId() {
         return id;
