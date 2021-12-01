@@ -16,10 +16,10 @@ public class TeamEntity {
     private String teamValue;
 
     @ManyToOne
-    private LeagueEntity leagueEntity;
+    private LeagueEntity leagues;
 
     @ManyToOne
-    private OwnerEntity ownerEntity;
+    private OwnerEntity owners;
 
     @OneToMany(mappedBy = "teams", cascade = CascadeType.ALL)
     private List<PlayerEntity> players = new ArrayList<>();
@@ -56,19 +56,19 @@ public class TeamEntity {
     }
 
     public LeagueEntity getLeagueEntity() {
-        return leagueEntity;
+        return leagues;
     }
 
     public void setLeagueEntity(LeagueEntity leagueEntity) {
-        this.leagueEntity = leagueEntity;
+        this.leagues = leagueEntity;
     }
 
     public OwnerEntity getOwnerEntity() {
-        return ownerEntity;
+        return owners;
     }
 
     public void setOwnerEntity(OwnerEntity ownerEntity) {
-        this.ownerEntity = ownerEntity;
+        this.owners = ownerEntity;
     }
 
     public List<PlayerEntity> getPlayers() {

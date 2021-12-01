@@ -12,16 +12,19 @@ public class PlayerEntity {
     private String fullName;
     private String position;
     private String marketValue;
+    private String userName;
+    private String password;
+
 
     @ManyToOne
-    private TeamEntity teamEntity;
+    private TeamEntity teams;
 
     public TeamEntity getTeamEntity() {
-        return teamEntity;
+        return teams;
     }
 
     public void setTeamEntity(TeamEntity teamEntity) {
-        this.teamEntity = teamEntity;
+        this.teams = teamEntity;
     }
 
     public Long getId() {
@@ -54,5 +57,21 @@ public class PlayerEntity {
 
     public void setMarketValue(String marketValue) {
         this.marketValue = marketValue;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

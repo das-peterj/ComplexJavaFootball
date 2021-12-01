@@ -11,7 +11,7 @@ public class SponsorEntity {
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "Sponsors")
+    @ManyToMany(mappedBy = "sponsors")
     private Set<TeamEntity> teamEntities;
 
     public Set<TeamEntity> getTeamEntities() {

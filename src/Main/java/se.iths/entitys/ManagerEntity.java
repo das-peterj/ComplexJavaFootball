@@ -12,6 +12,8 @@ public class ManagerEntity {
     private String phoneNumber;
     private String age;
     private String email;
+    private String userName;
+    private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
     private TeamEntity teamEntity;
@@ -63,5 +65,21 @@ public class ManagerEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

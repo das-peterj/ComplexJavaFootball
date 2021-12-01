@@ -14,8 +14,10 @@ public class OwnerEntity {
     private String netWorth;
     private String phoneNumber;
     private String age;
+    private String userName;
+    private String password;
 
-    @OneToMany(mappedBy = "Owners", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owners", cascade = CascadeType.ALL)
     private List<TeamEntity> teams = new ArrayList<>();
 
     public List<TeamEntity> getTeams() {
@@ -66,4 +68,19 @@ public class OwnerEntity {
         this.age = age;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
