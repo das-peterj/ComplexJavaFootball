@@ -1,5 +1,7 @@
 package se.iths.entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -12,39 +14,53 @@ public class TeamEntity {
     private String name;
     private String teamValue;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="league_id", referencedColumnName = "id")
     private LeagueEntity leagues;
 
-    @ManyToOne
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="owner_id", referencedColumnName = "id")
     private OwnerEntity owners;
 
-    @OneToMany(mappedBy = "teams", cascade = CascadeType.PERSIST)
+
+    @OneToMany(mappedBy = "teams")
     private Set<PlayerEntity> players = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "team")
     private ManagerEntity managerEntity;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<SponsorEntity> sponsors = new HashSet<>();
 
-    public void addOwner(OwnerEntity ownerEntity) {
-        this.owners = ownerEntity;
-        ownerEntity.getTeams().add(this);
+
+
+    public OwnerEntity getOwners() {
+        return owners;
     }
 
-    public void addLeague(LeagueEntity leagueEntity) {
-        this.leagues = leagueEntity;
-        leagueEntity.getTeams().add(this);
+    public void setOwners(OwnerEntity owners) {
+        this.owners = owners;
+    }
+
+    public void addOwner(OwnerEntity ownerEntity) {
+        this.owners = ownerEntity;
+    }
+
+    public void addLeague(LeagueEntity league) {
+        this.leagues = league;
     }
 
     public void addPlayer(PlayerEntity playerEntity) {
         this.players.add(playerEntity);
-        playerEntity.setTeamEntity(this);
+        playerEntity.setTeams(this);
     }
 
     public void addManager(ManagerEntity managerEntity) {
         this.managerEntity = managerEntity;
-        managerEntity.setTeamEntity(this);
+        managerEntity.setTeam(this);
     }
 
     //behövs nog ändras lite om en sponsor ska kunna vara sponsor på flera teams
@@ -52,10 +68,6 @@ public class TeamEntity {
     public void addSponsor(SponsorEntity sponsorEntity) {
         this.sponsors.add(sponsorEntity);
         sponsorEntity.setTeamEntities(this);
-    }
-
-    public void setManager(ManagerEntity manager) {
-        this.managerEntity = manager;
     }
 
     public Long getId() {
@@ -82,20 +94,12 @@ public class TeamEntity {
         this.teamValue = teamValue;
     }
 
-    public LeagueEntity getLeagueEntity() {
+    public LeagueEntity getLeagues() {
         return leagues;
     }
 
-    public void setLeagueEntity(LeagueEntity leagueEntity) {
-        this.leagues = leagueEntity;
-    }
-
-    public OwnerEntity getOwnerEntity() {
-        return owners;
-    }
-
-    public void setOwnerEntity(OwnerEntity ownerEntity) {
-        this.owners = ownerEntity;
+    public void setLeagues(LeagueEntity leagues) {
+        this.leagues = leagues;
     }
 
     public Set<PlayerEntity> getPlayers() {

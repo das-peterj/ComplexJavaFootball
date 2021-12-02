@@ -26,9 +26,10 @@ public class LeagueService {
         leagueRepository.deleteById(foundLeague.getId());
     }
 
-    public Optional<LeagueEntity> findLeagueById(Long id) {
-        return leagueRepository.findById(id);
+    public LeagueEntity findLeagueById(Long leagueId) {
+        return leagueRepository.findById(leagueId).get();
     }
+
 
     public Iterable<LeagueEntity> findAllLeagues(){
         return leagueRepository.findAll();

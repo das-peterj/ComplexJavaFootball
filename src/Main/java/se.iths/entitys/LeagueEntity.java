@@ -1,8 +1,12 @@
 package se.iths.entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class LeagueEntity {
@@ -13,16 +17,9 @@ public class LeagueEntity {
     private String leagueName;
     private String country;
 
-    @OneToMany(mappedBy = "leagues", cascade = CascadeType.ALL)
-    private List<TeamEntity> teams = new ArrayList<>();
 
-    public List<TeamEntity> getTeams() {
-        return teams;
-    }
-
-    public void setTeams(List<TeamEntity> teams) {
-        this.teams = teams;
-    }
+    @OneToMany(mappedBy = "leagues")
+    private Set<TeamEntity> teams = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -46,5 +43,13 @@ public class LeagueEntity {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Set<TeamEntity> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<TeamEntity> teams) {
+        this.teams = teams;
     }
 }

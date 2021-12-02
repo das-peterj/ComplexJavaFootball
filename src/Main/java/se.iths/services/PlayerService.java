@@ -30,8 +30,8 @@ public class PlayerService {
     }
 
 
-    public Optional<PlayerEntity> findPlayerById(Long id) {
-        return playerRepository.findById(id);
+    public PlayerEntity findPlayerById(Long id) {
+        return playerRepository.findById(id).get();
     }
 
     public Iterable<PlayerEntity> findAllPlayers(){

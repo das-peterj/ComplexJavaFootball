@@ -28,10 +28,10 @@ public class LeagueController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteLeague(@PathVariable Long id) {
-        Optional<LeagueEntity> foundLeague = leagueService.findLeagueById(id);
+        LeagueEntity foundLeague = leagueService.findLeagueById(id);
         String errLeagueNotFound = "{\"Error\": \"No league found with id " + id + "\"}";
 
-        if (foundLeague.isEmpty()) {
+        if (foundLeague == null) {
             throw new NotFoundException(errLeagueNotFound);
         }
         leagueService.deleteLeague(id);
@@ -39,11 +39,11 @@ public class LeagueController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<LeagueEntity>> findLeagueById(@PathVariable Long id) {
-        Optional<LeagueEntity> foundLeague = leagueService.findLeagueById(id);
+    public ResponseEntity<LeagueEntity> findLeagueById(@PathVariable Long id) {
+        LeagueEntity foundLeague = leagueService.findLeagueById(id);
         String errLeagueNotFound = "{\"Error\": \"No league found with id " + id + "\"}";
 
-        if (foundLeague.isEmpty()) {
+        if (foundLeague == null) {
             throw new NotFoundException(errLeagueNotFound);
         }
         return new ResponseEntity<>(foundLeague, HttpStatus.OK);

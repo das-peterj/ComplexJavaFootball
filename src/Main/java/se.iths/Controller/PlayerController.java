@@ -1,21 +1,30 @@
 package se.iths.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.iths.Repository.PlayerRepository;
+import se.iths.Repository.TeamRepository;
 import se.iths.entitys.PlayerEntity;
+import se.iths.entitys.TeamEntity;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.PlayerService;
-import java.util.List;
+import se.iths.services.TeamService;
+
 import java.util.Optional;
 
 @RestController
 @RequestMapping("players")
 public class PlayerController {
 
+    private final PlayerRepository playerRepository;
     private final PlayerService playerService;
+    private final TeamService teamService;
 
-    public PlayerController(PlayerService playerService) {
+    public PlayerController(PlayerRepository playerRepository, PlayerService playerService, TeamService teamService) {
+        this.playerRepository = playerRepository;
         this.playerService = playerService;
+        this.teamService = teamService;
     }
 
     @PostMapping("")
@@ -26,10 +35,10 @@ public class PlayerController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletePlayer(@PathVariable Long id) {
-        Optional<PlayerEntity> foundPlayer = playerService.findPlayerById(id);
+        PlayerEntity foundPlayer = playerService.findPlayerById(id);
         String errPlayerNotFound = "{\"Error\": \"No league found with id " + id + "\"}";
 
-        if (foundPlayer.isEmpty()) {
+        if (foundPlayer == null) {
             throw new NotFoundException(errPlayerNotFound);
         }
         playerService.deletePlayer(id);
@@ -38,7 +47,7 @@ public class PlayerController {
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<PlayerEntity>> findPlayerById(@PathVariable Long id) {
-        Optional<PlayerEntity> foundPlayer = playerService.findPlayerById(id);
+        Optional<PlayerEntity> foundPlayer = Optional.ofNullable(playerService.findPlayerById(id));
         String errPlayerNotFound = "{\"Error\": \"No league found with id " + id + "\"}";
 
         if (foundPlayer.isEmpty()) {
@@ -56,6 +65,17 @@ public class PlayerController {
             throw new NotFoundException(errPlayersNotFound);
         }
         return new ResponseEntity<>(allPlayers, HttpStatus.OK);
+    }
+
+    @PutMapping("/{playerId}/addPlayerToTeam/{teamId}")
+    public PlayerEntity addPlayerToTeam(@PathVariable Long playerId, @PathVariable Long teamId) {
+//        PlayerEntity foundPlayer = playerRepository.findById(playerId).get();
+        PlayerEntity foundPlayer = playerService.findPlayerById(playerId);
+//        TeamEntity foundTeam = teamRepository.findById(teamId).get();
+        TeamEntity foundTeam = teamService.findTeamById(teamId);
+
+        foundPlayer.addTeam(foundTeam);
+        return playerRepository.save(foundPlayer);
     }
 
     /*

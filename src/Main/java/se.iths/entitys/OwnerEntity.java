@@ -2,7 +2,9 @@ package se.iths.entitys;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class OwnerEntity {
@@ -17,14 +19,16 @@ public class OwnerEntity {
     private String userName;
     private String password;
 
-    @OneToMany(mappedBy = "owners", cascade = CascadeType.ALL)
-    private List<TeamEntity> teams = new ArrayList<>();
 
-    public List<TeamEntity> getTeams() {
+    @OneToMany(mappedBy = "owners")
+    private Set<TeamEntity> teams = new HashSet<>();
+
+
+    public Set<TeamEntity> getTeams() {
         return teams;
     }
 
-    public void setTeams(List<TeamEntity> teams) {
+    public void setTeams(Set<TeamEntity> teams) {
         this.teams = teams;
     }
 
@@ -82,5 +86,9 @@ public class OwnerEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public void addOwner(TeamEntity foundTeam) {
     }
 }

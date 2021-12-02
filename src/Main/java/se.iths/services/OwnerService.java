@@ -30,8 +30,8 @@ public class OwnerService {
     }
 
 
-    public Optional<OwnerEntity> findOwnerById(Long id) {
-        return ownerRepository.findById(id);
+    public OwnerEntity findOwnerById(Long id) {
+        return ownerRepository.findById(id).get();
     }
 
     public Iterable<OwnerEntity> findAllOwners(){

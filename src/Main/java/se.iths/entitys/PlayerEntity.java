@@ -1,5 +1,7 @@
 package se.iths.entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,19 +18,10 @@ public class PlayerEntity {
     private String userName;
     private String password;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="team_id", referencedColumnName = "id")
     private TeamEntity teams;
-
-
-
-    public Set<TeamEntity> getTeamEntity() {
-        return (Set<TeamEntity>) teams;
-    }
-
-    public void setTeamEntity(TeamEntity teams) {
-        this.teams = teams;
-    }
 
     public Long getId() {
         return id;
@@ -76,5 +69,17 @@ public class PlayerEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public TeamEntity getTeams() {
+        return teams;
+    }
+
+    public void setTeams(TeamEntity teams) {
+        this.teams = teams;
+    }
+
+    public void addTeam(TeamEntity foundTeam) {
+        this.teams = foundTeam;
     }
 }

@@ -4,20 +4,25 @@ package se.iths.Controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.iths.Repository.ManagerRepository;
 import se.iths.entitys.ManagerEntity;
+import se.iths.entitys.TeamEntity;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.ManagerService;
-import java.util.List;
-import java.util.Optional;
+import se.iths.services.TeamService;
 
 @RestController
 @RequestMapping("managers")
 public class ManagerController {
 
+    private final ManagerRepository managerRepository;
     private final ManagerService managerService;
+    private final TeamService teamService;
 
-    public ManagerController(ManagerService managerService){
+    public ManagerController(ManagerRepository managerRepository, ManagerService managerService, TeamService teamService){
+        this.managerRepository = managerRepository;
         this.managerService = managerService;
+        this.teamService = teamService;
     }
 
     @PostMapping("")
@@ -28,10 +33,10 @@ public class ManagerController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteManager(@PathVariable Long id) {
-        Optional<ManagerEntity> foundManager = managerService.findManagerById(id);
+        ManagerEntity foundManager = managerService.findManagerById(id);
         String errManagerNotFound = "{\"Error\": \"No Manager found with id " + id + "\"}";
 
-        if (foundManager.isEmpty()) {
+        if (foundManager == null) {
             throw new NotFoundException(errManagerNotFound);
         }
         managerService.deleteManager(id);
@@ -39,11 +44,11 @@ public class ManagerController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<ManagerEntity>> findManagerById(@PathVariable Long id){
-        Optional<ManagerEntity> foundManager = managerService.findManagerById(id);
+    public ResponseEntity <ManagerEntity> findManagerById(@PathVariable Long id){
+        ManagerEntity foundManager = managerService.findManagerById(id);
         String errManagerNotFound = "{\"Error\": \"No Managers found with id " + id + "\"}";
 
-        if (foundManager.isEmpty()) {
+        if (foundManager == null) {
             throw new NotFoundException(errManagerNotFound);
         }
         return new ResponseEntity<>(foundManager, HttpStatus.OK);
@@ -58,6 +63,15 @@ public class ManagerController {
             throw new NotFoundException(errManagerNotfound);
         }
         return new ResponseEntity<>(allManagers,HttpStatus.OK);
+    }
+
+    @PutMapping("/{managerId}/addManagerToTeam/{teamId}")
+    public ManagerEntity addManagerToTeam(@PathVariable Long managerId, @PathVariable Long teamId) {
+        ManagerEntity foundManager = managerService.findManagerById(managerId);
+        TeamEntity foundTeam = teamService.findTeamById(teamId);
+
+        foundManager.addTeam(foundTeam);
+        return managerRepository.save(foundManager);
     }
 
    /* @GetMapping("/findByFullName/{name}")

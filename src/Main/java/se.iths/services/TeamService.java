@@ -1,6 +1,7 @@
 package se.iths.services;
 
 import org.springframework.stereotype.Service;
+import se.iths.Repository.PlayerRepository;
 import se.iths.Repository.TeamRepository;
 import se.iths.entitys.PlayerEntity;
 import se.iths.entitys.TeamEntity;
@@ -13,7 +14,7 @@ public class TeamService {
 
     private final TeamRepository teamRepository;
 
-    PlayerService playerService;
+
 
 
     public TeamService(TeamRepository teamRepository) {
@@ -29,9 +30,8 @@ public class TeamService {
         teamRepository.deleteById(foundTeam.getId());
     }
 
-
-    public Optional<TeamEntity> findTeamById(Long id) {
-        return teamRepository.findById(id);
+    public TeamEntity findTeamById(Long id) {
+        return teamRepository.findById(id).get();
     }
 
     public Iterable<TeamEntity> findAllTeams(){
@@ -42,14 +42,5 @@ public class TeamService {
         return teamRepository.findByName(teamName);
     }
 
-    public TeamEntity addPlayerToTeam(Long teamId, Long playerId) {
-        TeamEntity foundTeam = findTeamById(teamId).get();
-        PlayerEntity foundPlayer = playerService.findPlayerById(playerId);
-
-        foundTeam.addPlayer(foundPlayer);
-        teamRepository.save(foundTeam);
-
-        return foundTeam;
-    }
 
 }

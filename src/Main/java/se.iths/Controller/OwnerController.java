@@ -4,21 +4,28 @@ package se.iths.Controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.iths.Repository.OwnerRepository;
+import se.iths.Repository.TeamRepository;
 import se.iths.entitys.OwnerEntity;
+import se.iths.entitys.TeamEntity;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.OwnerService;
-
-import java.util.List;
-import java.util.Optional;
+import se.iths.services.TeamService;
 
 @RestController
 @RequestMapping("owners")
 public class OwnerController {
 
     private final OwnerService ownerService;
+    private final TeamService teamService;
+    private final TeamRepository teamRepository;
+    private final OwnerRepository ownerRepository;
 
-    public OwnerController(OwnerService ownerService){
+    public OwnerController(OwnerService ownerService, TeamService teamService, TeamRepository teamRepository, OwnerRepository ownerRepository){
         this.ownerService= ownerService;
+        this.teamService = teamService;
+        this.teamRepository = teamRepository;
+        this.ownerRepository = ownerRepository;
     }
 
     @PostMapping("")
@@ -28,21 +35,21 @@ public class OwnerController {
     }
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteOwner(@PathVariable Long id) {
-        Optional<OwnerEntity> foundOwner = ownerService.findOwnerById(id);
+        OwnerEntity foundOwner = ownerService.findOwnerById(id);
         String errOwnerNotFound = "{\"Error\": \"No Owner found with id " + id + "\"}";
 
-        if (foundOwner.isEmpty()) {
+        if (foundOwner == null) {
             throw new NotFoundException(errOwnerNotFound);
         }
         ownerService.deleteOwner(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @GetMapping("{id}")
-    public ResponseEntity<Optional<OwnerEntity>> findOwnerById(@PathVariable Long id){
-        Optional<OwnerEntity> foundOwner = ownerService.findOwnerById(id);
+    public ResponseEntity<OwnerEntity> findOwnerById(@PathVariable Long id){
+        OwnerEntity foundOwner = ownerService.findOwnerById(id);
         String errOwnerNotFound = "{\"Error\": \"No Owners found with id " + id + "\"}";
 
-        if (foundOwner.isEmpty()) {
+        if (foundOwner == null) {
             throw new NotFoundException(errOwnerNotFound);
         }
         return new ResponseEntity<>(foundOwner, HttpStatus.OK);
@@ -58,6 +65,16 @@ public class OwnerController {
         }
         return new ResponseEntity<>(allOwners,HttpStatus.OK);
     }
+
+    @PutMapping("/{ownerId}/addOwnerToTeam/{teamId}")
+    public OwnerEntity addOwnerToTeam(@PathVariable Long ownerId, @PathVariable Long teamId) {
+        TeamEntity foundTeam = teamService.findTeamById(teamId);
+        OwnerEntity foundOwner = ownerService.findOwnerById(ownerId);
+
+        foundTeam.addOwner(foundOwner);
+        return ownerRepository.save(foundOwner);
+    }
+
     /*
     @GetMapping("findByFullName/{name}")
     public ResponseEntity<List<OwnerEntity>> findOwnerByFullName (@PathVariable String name){

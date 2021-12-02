@@ -31,8 +31,8 @@ public class ManagerService {
     }
 
 
-    public Optional<ManagerEntity> findManagerById(Long id) {
-        return managerRepository.findById(id);
+    public ManagerEntity findManagerById(Long id) {
+        return managerRepository.findById(id).get();
     }
 
     public Iterable<ManagerEntity> findAllManagers(){

@@ -1,5 +1,7 @@
 package se.iths.entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,16 +17,19 @@ public class ManagerEntity {
     private String userName;
     private String password;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    private TeamEntity teamEntity;
+    @JoinColumn(name = "teamId", referencedColumnName = "id")
+    private TeamEntity team;
 
 
-    public TeamEntity getTeamEntity() {
-        return teamEntity;
+
+    public TeamEntity getTeam() {
+        return team;
     }
 
-    public void setTeamEntity(TeamEntity teamEntity) {
-        this.teamEntity = teamEntity;
+    public void setTeam(TeamEntity team) {
+        this.team = team;
     }
 
     public Long getId() {
@@ -81,5 +86,9 @@ public class ManagerEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void addTeam(TeamEntity foundTeam) {
+        this.team = foundTeam;
     }
 }
