@@ -25,13 +25,14 @@ public class TeamEntity {
     @JoinColumn(name="owner_id", referencedColumnName = "id")
     private OwnerEntity owners;
 
-
     @OneToMany(mappedBy = "teams")
     private Set<PlayerEntity> players = new HashSet<>();
 
     @OneToOne(mappedBy = "team")
     private ManagerEntity managerEntity;
 
+
+    // Fix, not complete. Cannot add sponsors to teams
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<SponsorEntity> sponsors = new HashSet<>();
 
