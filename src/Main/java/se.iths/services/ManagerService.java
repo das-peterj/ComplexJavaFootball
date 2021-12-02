@@ -1,6 +1,6 @@
 package se.iths.services;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.iths.Repository.ManagerRepository;
 import se.iths.entitys.ManagerEntity;
@@ -14,14 +14,14 @@ public class ManagerService {
 
     private final ManagerRepository managerRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public ManagerService(ManagerRepository managerRepository) {
         this.managerRepository = managerRepository;
     }
 
     public ManagerEntity createManager(ManagerEntity managerEntity){
-        managerEntity.setPassword(passwordEncoder.encode(managerEntity.getPassword()));
+//        managerEntity.setPassword(passwordEncoder.encode(managerEntity.getPassword()));
         // add role in future
         return managerRepository.save(managerEntity);
     }

@@ -18,10 +18,8 @@ public class SponsorEntity {
         return teamEntities;
     }
 
-    public void setTeamEntities(Set<TeamEntity> teamEntities) {
-        this.teamEntities = teamEntities;
-    }
-
+    public void setTeamEntities(TeamEntity teamEntity) {
+        }
     public Long getId() {
         return id;
     }
@@ -37,4 +35,6 @@ public class SponsorEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

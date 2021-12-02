@@ -45,7 +45,7 @@ public class OwnerController {
         if (foundOwner.isEmpty()) {
             throw new NotFoundException(errOwnerNotFound);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(foundOwner, HttpStatus.OK);
     }
 
     @GetMapping()
@@ -58,6 +58,7 @@ public class OwnerController {
         }
         return new ResponseEntity<>(allOwners,HttpStatus.OK);
     }
+    /*
     @GetMapping("findByFullName/{name}")
     public ResponseEntity<List<OwnerEntity>> findOwnerByFullName (@PathVariable String name){
         List<OwnerEntity> Owner = ownerService.findOwnerByFullName(name);
@@ -67,6 +68,6 @@ public class OwnerController {
             throw new NotFoundException(errOwnerNotfound);
         }
         return new ResponseEntity<>(Owner,HttpStatus.OK);
-    }
+    }*/
 
 }

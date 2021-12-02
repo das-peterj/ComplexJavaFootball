@@ -59,7 +59,9 @@ public class LeagueController {
         }
         return new ResponseEntity<>(allLeagues, HttpStatus.OK);
     }
-
+    
+    
+    //Behövs att fixas.
     @GetMapping("findByName/{name}")
     public ResponseEntity<List<LeagueEntity>> findLeagueByFullName (@PathVariable String name){
         List<LeagueEntity> league = leagueService.findLeagueByName(name);

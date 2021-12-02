@@ -1,6 +1,6 @@
 package se.iths.services;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.iths.Repository.OwnerRepository;
 import se.iths.entitys.OwnerEntity;
@@ -13,14 +13,14 @@ public class OwnerService {
 
     private final OwnerRepository ownerRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public OwnerService(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
     }
 
     public OwnerEntity createOwner (OwnerEntity ownerEntity){
-        ownerEntity.setPassword(passwordEncoder.encode(ownerEntity.getPassword()));
+//        ownerEntity.setPassword(passwordEncoder.encode(ownerEntity.getPassword()));
         // add role in future
         return ownerRepository.save(ownerEntity);
     }

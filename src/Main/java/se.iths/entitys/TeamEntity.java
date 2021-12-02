@@ -1,10 +1,7 @@
 package se.iths.entitys;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class TeamEntity {
@@ -21,8 +18,8 @@ public class TeamEntity {
     @ManyToOne
     private OwnerEntity owners;
 
-    @OneToMany(mappedBy = "teams", cascade = CascadeType.ALL)
-    private List<PlayerEntity> players = new ArrayList<>();
+    @OneToMany(mappedBy = "teams", cascade = CascadeType.PERSIST)
+    private Set<PlayerEntity> players = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     private ManagerEntity managerEntity;
@@ -30,6 +27,36 @@ public class TeamEntity {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<SponsorEntity> sponsors = new HashSet<>();
 
+    public void addOwner(OwnerEntity ownerEntity) {
+        this.owners = ownerEntity;
+        ownerEntity.getTeams().add(this);
+    }
+
+    public void addLeague(LeagueEntity leagueEntity) {
+        this.leagues = leagueEntity;
+        leagueEntity.getTeams().add(this);
+    }
+
+    public void addPlayer(PlayerEntity playerEntity) {
+        this.players.add(playerEntity);
+        playerEntity.setTeamEntity(this);
+    }
+
+    public void addManager(ManagerEntity managerEntity) {
+        this.managerEntity = managerEntity;
+        managerEntity.setTeamEntity(this);
+    }
+
+    //behövs nog ändras lite om en sponsor ska kunna vara sponsor på flera teams
+    // då detta antagligen skriver över den nuvarande sponsoren
+    public void addSponsor(SponsorEntity sponsorEntity) {
+        this.sponsors.add(sponsorEntity);
+        sponsorEntity.setTeamEntities(this);
+    }
+
+    public void setManager(ManagerEntity manager) {
+        this.managerEntity = manager;
+    }
 
     public Long getId() {
         return id;
@@ -71,11 +98,11 @@ public class TeamEntity {
         this.owners = ownerEntity;
     }
 
-    public List<PlayerEntity> getPlayers() {
+    public Set<PlayerEntity> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<PlayerEntity> players) {
+    public void setPlayers(Set<PlayerEntity> players) {
         this.players = players;
     }
 

@@ -57,6 +57,8 @@ public class PlayerController {
         }
         return new ResponseEntity<>(allPlayers, HttpStatus.OK);
     }
+
+    /*
     @GetMapping("findByFullName/{name}")
     public ResponseEntity<List<PlayerEntity>> findPlayerByFullName (@PathVariable String name){
         List<PlayerEntity> Player = playerService.findPlayerByFullName(name);
@@ -66,7 +68,7 @@ public class PlayerController {
             throw new NotFoundException(errOwnerNotfound);
         }
         return new ResponseEntity<>(Player,HttpStatus.OK);
-    }
+    }*/
 
 
 

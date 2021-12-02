@@ -1,6 +1,7 @@
 package se.iths.entitys;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -16,15 +17,17 @@ public class PlayerEntity {
     private String password;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private TeamEntity teams;
 
-    public TeamEntity getTeamEntity() {
-        return teams;
+
+
+    public Set<TeamEntity> getTeamEntity() {
+        return (Set<TeamEntity>) teams;
     }
 
-    public void setTeamEntity(TeamEntity teamEntity) {
-        this.teams = teamEntity;
+    public void setTeamEntity(TeamEntity teams) {
+        this.teams = teams;
     }
 
     public Long getId() {

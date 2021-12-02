@@ -1,5 +1,5 @@
 package se.iths.services;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.iths.Repository.PlayerRepository;
 import se.iths.entitys.PlayerEntity;
@@ -13,14 +13,14 @@ public class PlayerService {
 
     private final PlayerRepository playerRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
 
     public PlayerEntity createPlayer(PlayerEntity playerEntity){
-        playerEntity.setPassword(passwordEncoder.encode(playerEntity.getPassword()));
+//        playerEntity.setPassword(passwordEncoder.encode(playerEntity.getPassword()));
         // add role in future
         return playerRepository.save(playerEntity);
     }

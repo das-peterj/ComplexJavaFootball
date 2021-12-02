@@ -57,4 +57,9 @@ public class TeamController {
         }
         return new ResponseEntity<>(allTeams, HttpStatus.OK);
     }
+
+    @PostMapping("{teamId}/addPlayer/{playerId}")
+    public TeamEntity addPlayerToTeam(@PathVariable Long teamId, @PathVariable Long playerId) {
+        return teamService.addPlayerToTeam(teamId, playerId);
+    }
 }

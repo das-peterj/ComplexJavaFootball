@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping
+@RequestMapping("managers")
 public class ManagerController {
 
     private final ManagerService managerService;
@@ -25,6 +25,7 @@ public class ManagerController {
         ManagerEntity createdManager = managerService.createManager(manager);
                 return new ResponseEntity<>(createdManager, HttpStatus.CREATED);
     }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteManager(@PathVariable Long id) {
         Optional<ManagerEntity> foundManager = managerService.findManagerById(id);
@@ -45,8 +46,9 @@ public class ManagerController {
         if (foundManager.isEmpty()) {
             throw new NotFoundException(errManagerNotFound);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(foundManager, HttpStatus.OK);
     }
+
     @GetMapping()
     public ResponseEntity<Iterable<ManagerEntity>> findAllManagers(){
         Iterable<ManagerEntity> allManagers = managerService.findAllManagers();
@@ -57,7 +59,8 @@ public class ManagerController {
         }
         return new ResponseEntity<>(allManagers,HttpStatus.OK);
     }
-    @GetMapping("/findByFullName/{name}")
+
+   /* @GetMapping("/findByFullName/{name}")
     public ResponseEntity<List<ManagerEntity>> findManagerByFullName(@PathVariable String name){
         List<ManagerEntity> Manager = managerService.findManagerByFullName(name);
         String errManagerNotfound = "{\"Error\": \"No Manager found }";
@@ -66,7 +69,7 @@ public class ManagerController {
             throw new NotFoundException(errManagerNotfound);
         }
         return new ResponseEntity<>(Manager,HttpStatus.OK);
-    }
+    }*/
 
 }
 
