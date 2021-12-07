@@ -1,6 +1,7 @@
 package se.iths.entitys;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,11 +13,17 @@ public class SponsorEntity {
     private String name;
 
     @ManyToMany(mappedBy = "sponsors")
+    private List<TeamEntity> teamEntities;
+
+    public SponsorEntity(){}
+    /*@ManyToMany(mappedBy = "sponsors")
     private Set<TeamEntity> teamEntities;
 
     public Set<TeamEntity> getTeamEntities() {
         return teamEntities;
     }
+    */
+
 
     public void setTeamEntities(TeamEntity teamEntity) {
         }

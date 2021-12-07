@@ -27,8 +27,8 @@ public class SponsorService {
     }
 
 
-    public Optional<SponsorEntity> findSponsorById(Long id) {
-        return sponsorRepository.findById(id);
+    public SponsorEntity findSponsorById(Long id) {
+        return sponsorRepository.findById(id).get();
     }
 
     public Iterable<SponsorEntity> findAllSponsors() {

@@ -33,10 +33,13 @@ public class TeamEntity {
 
 
     // Fix, not complete. Cannot add sponsors to teams
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    /*@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<SponsorEntity> sponsors = new HashSet<>();
+     */
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<SponsorEntity> sponsors;
 
-
+    public TeamEntity (){}
 
     public OwnerEntity getOwners() {
         return owners;
@@ -119,11 +122,11 @@ public class TeamEntity {
         this.managerEntity = managerEntity;
     }
 
-    public Set<SponsorEntity> getSponsors() {
+    public List<SponsorEntity> getSponsors() {
         return sponsors;
     }
 
-    public void setSponsors(Set<SponsorEntity> sponsors) {
+    public void setSponsors(List<SponsorEntity> sponsors) {
         this.sponsors = sponsors;
     }
 }
