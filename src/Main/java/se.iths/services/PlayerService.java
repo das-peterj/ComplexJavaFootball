@@ -3,6 +3,8 @@ package se.iths.services;
 import org.springframework.stereotype.Service;
 import se.iths.Repository.PlayerRepository;
 import se.iths.entitys.PlayerEntity;
+import se.iths.exceptions.NotFoundException;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,7 @@ public class PlayerService {
 
 
     public PlayerEntity findPlayerById(Long id) {
-        return playerRepository.findById(id).get();
+        return playerRepository.findById(id).orElseThrow(()-> new NotFoundException("Could not find this player with id " + id));
     }
 
     public Iterable<PlayerEntity> findAllPlayers(){

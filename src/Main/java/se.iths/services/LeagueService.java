@@ -2,6 +2,7 @@ package se.iths.services;
 import org.springframework.stereotype.Service;
 import se.iths.Repository.LeagueRepository;
 import se.iths.entitys.LeagueEntity;
+import se.iths.exceptions.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -22,12 +23,11 @@ public class LeagueService {
         return leagueRepository.save(leagueEntity);
     }
     public void deleteLeague(Long id) {
-        LeagueEntity foundLeague = leagueRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        leagueRepository.deleteById(foundLeague.getId());
+        LeagueEntity foundLeague = leagueRepository.findById(id).orElseThrow(() -> new NotFoundException(""));
     }
 
     public LeagueEntity findLeagueById(Long leagueId) {
-        return leagueRepository.findById(leagueId).get();
+        return leagueRepository.findById(leagueId).orElseThrow(()-> new NotFoundException("Could not find this league with id " + leagueId));
     }
 
 

@@ -4,11 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import se.iths.Repository.LeagueRepository;
 import se.iths.Repository.TeamRepository;
 import se.iths.entitys.LeagueEntity;
-import se.iths.entitys.OwnerEntity;
 import se.iths.entitys.TeamEntity;
+import se.iths.exceptions.BeenDeletedException;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.LeagueService;
 import se.iths.services.OwnerService;
@@ -39,10 +38,10 @@ public class TeamController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteTeam(@PathVariable Long id) {
         TeamEntity foundTeam = teamService.findTeamById(id);
-        String errTeamNotFound = "{\"Error\": \"No team found with id " + id + "\"}";
+        String errTeamNotFound = "{\"Error\": \"Team with id " + id + " has been deleted.\"}";
 
         if (foundTeam == null) {
-            throw new NotFoundException(errTeamNotFound);
+            throw new BeenDeletedException(errTeamNotFound);
         }
         teamService.deleteTeam(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

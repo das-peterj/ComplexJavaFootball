@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import se.iths.Repository.SponsorRepository;
 import se.iths.entitys.SponsorEntity;
 import se.iths.entitys.TeamEntity;
+import se.iths.exceptions.BeenDeletedException;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.SponsorService;
 import se.iths.services.TeamService;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("sponsors")
@@ -35,10 +34,10 @@ public class SponsorController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteSponsor(@PathVariable Long id) {
         SponsorEntity foundSponsor = sponsorService.findSponsorById(id);
-        String errSponsorNotFound = "{\"Error\": \"No sponsor found with id " + id + "\"}";
+        String errSponsorDeleted = "{\"Error\": \"sponsor deleted with id " + id + "\"}";
 
         if (foundSponsor == null) {
-            throw new NotFoundException(errSponsorNotFound);
+            throw new BeenDeletedException(errSponsorDeleted);
         }
         sponsorService.deleteSponsor(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

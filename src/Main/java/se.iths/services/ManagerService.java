@@ -4,6 +4,8 @@ package se.iths.services;
 import org.springframework.stereotype.Service;
 import se.iths.Repository.ManagerRepository;
 import se.iths.entitys.ManagerEntity;
+import se.iths.exceptions.NotFoundException;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +34,7 @@ public class ManagerService {
 
 
     public ManagerEntity findManagerById(Long id) {
-        return managerRepository.findById(id).get();
+        return managerRepository.findById(id).orElseThrow(()-> new NotFoundException("Could not find this manager with id " + id));
     }
 
     public Iterable<ManagerEntity> findAllManagers(){

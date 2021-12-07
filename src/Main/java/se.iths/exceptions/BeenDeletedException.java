@@ -1,7 +1,7 @@
 package se.iths.exceptions;
 
 public class BeenDeletedException extends RuntimeException{
-    public BeenDeletedException(String errorMessage, Throwable err){
-        super(errorMessage, err);
+    public BeenDeletedException(String errorMessage){
+        super(errorMessage);
     }
 }

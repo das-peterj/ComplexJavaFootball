@@ -4,6 +4,8 @@ package se.iths.services;
 import org.springframework.stereotype.Service;
 import se.iths.Repository.OwnerRepository;
 import se.iths.entitys.OwnerEntity;
+import se.iths.exceptions.NotFoundException;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,7 @@ public class OwnerService {
 
 
     public OwnerEntity findOwnerById(Long id) {
-        return ownerRepository.findById(id).get();
+        return ownerRepository.findById(id).orElseThrow(()-> new NotFoundException("Could not find this owner with id " + id));
     }
 
     public Iterable<OwnerEntity> findAllOwners(){

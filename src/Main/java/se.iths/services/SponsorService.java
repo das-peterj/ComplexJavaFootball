@@ -4,6 +4,7 @@ package se.iths.services;
 import org.springframework.stereotype.Service;
 import se.iths.Repository.SponsorRepository;
 import se.iths.entitys.SponsorEntity;
+import se.iths.exceptions.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -28,7 +29,7 @@ public class SponsorService {
 
 
     public SponsorEntity findSponsorById(Long id) {
-        return sponsorRepository.findById(id).get();
+        return sponsorRepository.findById(id).orElseThrow(()-> new NotFoundException("Could not find this sponsor with id " + id));
     }
 
     public Iterable<SponsorEntity> findAllSponsors() {

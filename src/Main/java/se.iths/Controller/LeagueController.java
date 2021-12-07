@@ -4,11 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.iths.entitys.LeagueEntity;
+import se.iths.exceptions.BeenDeletedException;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.LeagueService;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("leagues")
@@ -29,10 +28,10 @@ public class LeagueController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteLeague(@PathVariable Long id) {
         LeagueEntity foundLeague = leagueService.findLeagueById(id);
-        String errLeagueNotFound = "{\"Error\": \"No league found with id " + id + "\"}";
+        String errLeagueDeleted = "{\"Error\": \"League has been deleted with this id " + id + "\"}";
 
         if (foundLeague == null) {
-            throw new NotFoundException(errLeagueNotFound);
+            throw new BeenDeletedException(errLeagueDeleted);
         }
         leagueService.deleteLeague(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -42,7 +41,7 @@ public class LeagueController {
     public ResponseEntity<LeagueEntity> findLeagueById(@PathVariable Long id) {
         LeagueEntity foundLeague = leagueService.findLeagueById(id);
         String errLeagueNotFound = "{\"Error\": \"No league found with id " + id + "\"}";
-
+        System.out.println(foundLeague);
         if (foundLeague == null) {
             throw new NotFoundException(errLeagueNotFound);
         }
@@ -72,9 +71,5 @@ public class LeagueController {
         }
         return new ResponseEntity<>(league,HttpStatus.OK);
     }
-
-
-
-
 
 }

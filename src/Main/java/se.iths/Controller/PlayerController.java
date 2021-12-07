@@ -1,12 +1,11 @@
 package se.iths.Controller;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.iths.Repository.PlayerRepository;
-import se.iths.Repository.TeamRepository;
 import se.iths.entitys.PlayerEntity;
 import se.iths.entitys.TeamEntity;
+import se.iths.exceptions.BeenDeletedException;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.PlayerService;
 import se.iths.services.TeamService;
@@ -36,10 +35,10 @@ public class PlayerController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletePlayer(@PathVariable Long id) {
         PlayerEntity foundPlayer = playerService.findPlayerById(id);
-        String errPlayerNotFound = "{\"Error\": \"No league found with id " + id + "\"}";
+        String errPlayerNotFound = "{\"Error\": \"League with id " + id + " has been deleted\"}";
 
         if (foundPlayer == null) {
-            throw new NotFoundException(errPlayerNotFound);
+            throw new BeenDeletedException(errPlayerNotFound);
         }
         playerService.deletePlayer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import se.iths.Repository.ManagerRepository;
 import se.iths.entitys.ManagerEntity;
 import se.iths.entitys.TeamEntity;
+import se.iths.exceptions.BeenDeletedException;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.ManagerService;
 import se.iths.services.TeamService;
@@ -34,10 +35,10 @@ public class ManagerController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteManager(@PathVariable Long id) {
         ManagerEntity foundManager = managerService.findManagerById(id);
-        String errManagerNotFound = "{\"Error\": \"No Manager found with id " + id + "\"}";
+        String errManagerDeleted = "{\"Error\": \" Manager deleted with id " + id + "\"}";
 
         if (foundManager == null) {
-            throw new NotFoundException(errManagerNotFound);
+            throw new BeenDeletedException(errManagerDeleted);
         }
         managerService.deleteManager(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

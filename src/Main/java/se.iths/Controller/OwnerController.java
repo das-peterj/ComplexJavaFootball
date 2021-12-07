@@ -8,6 +8,7 @@ import se.iths.Repository.OwnerRepository;
 import se.iths.Repository.TeamRepository;
 import se.iths.entitys.OwnerEntity;
 import se.iths.entitys.TeamEntity;
+import se.iths.exceptions.BeenDeletedException;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.OwnerService;
 import se.iths.services.TeamService;
@@ -36,10 +37,10 @@ public class OwnerController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteOwner(@PathVariable Long id) {
         OwnerEntity foundOwner = ownerService.findOwnerById(id);
-        String errOwnerNotFound = "{\"Error\": \"No Owner found with id " + id + "\"}";
+        String errOwnerDeleted = "{\"Error\": \"Owner deleted  with id " + id + "\"}";
 
         if (foundOwner == null) {
-            throw new NotFoundException(errOwnerNotFound);
+            throw new BeenDeletedException(errOwnerDeleted);
         }
         ownerService.deleteOwner(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

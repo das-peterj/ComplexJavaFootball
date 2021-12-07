@@ -5,6 +5,8 @@ import se.iths.Repository.PlayerRepository;
 import se.iths.Repository.TeamRepository;
 import se.iths.entitys.PlayerEntity;
 import se.iths.entitys.TeamEntity;
+import se.iths.exceptions.NotFoundException;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,7 @@ public class TeamService {
     }
 
     public TeamEntity findTeamById(Long id) {
-        return teamRepository.findById(id).get();
+        return teamRepository.findById(id).orElseThrow(()-> new NotFoundException("Could not find this team with id " + id));
     }
 
     public Iterable<TeamEntity> findAllTeams(){
