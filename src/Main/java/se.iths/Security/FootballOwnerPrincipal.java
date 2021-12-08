@@ -3,26 +3,26 @@ package se.iths.Security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import se.iths.entitys.PlayerEntity;
+import se.iths.entitys.OwnerEntity;
 import se.iths.entitys.RoleEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.Set;
 
-public class FootballUserPrincipal implements UserDetails {
+public class FootballOwnerPrincipal implements UserDetails {
 
-    private PlayerEntity playerEntity;
+    private OwnerEntity ownerEntity;
 
-    public FootballUserPrincipal(PlayerEntity playerEntity) {
+    public FootballOwnerPrincipal(OwnerEntity ownerEntity) {
         super();
-        this.playerEntity = playerEntity;
+        this.ownerEntity = ownerEntity;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<RoleEntity> roles = playerEntity.getRoles();
+        Set<RoleEntity> roles = ownerEntity.getRoles();
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles.size());
 
         for (RoleEntity role : roles) {

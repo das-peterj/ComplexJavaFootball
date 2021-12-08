@@ -1,9 +1,12 @@
 package se.iths.services;
 
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import se.iths.Repository.OwnerRepository;
+import se.iths.Repository.RoleRepository;
 import se.iths.entitys.OwnerEntity;
+import se.iths.entitys.RoleEntity;
 import se.iths.exceptions.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,16 +17,19 @@ import java.util.Optional;
 public class OwnerService {
 
     private final OwnerRepository ownerRepository;
+    private final RoleRepository roleRepository;
 
-//    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public OwnerService(OwnerRepository ownerRepository) {
+    public OwnerService(OwnerRepository ownerRepository, RoleRepository roleRepository) {
         this.ownerRepository = ownerRepository;
+        this.roleRepository = roleRepository;
     }
 
     public OwnerEntity createOwner (OwnerEntity ownerEntity){
-//        ownerEntity.setPassword(passwordEncoder.encode(ownerEntity.getPassword()));
-        // add role in future
+        ownerEntity.setPassword(passwordEncoder.encode(ownerEntity.getPassword()));
+        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_OWNER");
+        ownerEntity.addRole(roleToAdd);
         return ownerRepository.save(ownerEntity);
     }
     public void deleteOwner(Long id) {
@@ -40,8 +46,8 @@ public class OwnerService {
         return ownerRepository.findAll();
     }
 
-    public List<OwnerEntity> findOwnerByFullName(String fullName){
-        return ownerRepository.findByFullName(fullName);
-    }
+//    public List<OwnerEntity> findOwnerByFullName(String fullName){
+//        return ownerRepository.findByFullName(fullName);
+//    }
 
 }

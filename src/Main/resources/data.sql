@@ -1,0 +1,1 @@
+INSERT INTO LEAGUE_ENTITY (id, leagueName, country) VALUES (1, 'PremLeague', 'England');

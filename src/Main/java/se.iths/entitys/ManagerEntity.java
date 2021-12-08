@@ -2,7 +2,10 @@ package se.iths.entitys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class ManagerEntity {
@@ -22,7 +25,25 @@ public class ManagerEntity {
     @JoinColumn(name = "teamId", referencedColumnName = "id")
     private TeamEntity team;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<RoleEntity> roles = new HashSet<>();
 
+    public void addRole(RoleEntity role){
+        roles.add(role);
+        role.getManagers().add(this);
+    }
+    public void removeRole(RoleEntity role){
+        roles.remove(role);
+        role.getManagers().remove(this);
+    }
+
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
 
     public TeamEntity getTeam() {
         return team;

@@ -61,15 +61,15 @@ public class LeagueController {
     
     
     //Behövs att fixas.
-    @GetMapping("findByName/{name}")
-    public ResponseEntity<List<LeagueEntity>> findLeagueByFullName (@PathVariable String name){
-        List<LeagueEntity> league = leagueService.findLeagueByName(name);
-        String errLeagueNotfound = "{\"Error\": \"No League found }";
-
-        if(league == null){
-            throw new NotFoundException(errLeagueNotfound);
-        }
-        return new ResponseEntity<>(league,HttpStatus.OK);
-    }
+//    @GetMapping("findByName/{name}")
+//    public ResponseEntity<List<LeagueEntity>> findLeagueByFullName (@PathVariable String name){
+//        List<LeagueEntity> league = leagueService.findLeagueByName(name);
+//        String errLeagueNotfound = "{\"Error\": \"No League found }";
+//
+//        if(league == null){
+//            throw new NotFoundException(errLeagueNotfound);
+//        }
+//        return new ResponseEntity<>(league,HttpStatus.OK);
+//    }
 
 }

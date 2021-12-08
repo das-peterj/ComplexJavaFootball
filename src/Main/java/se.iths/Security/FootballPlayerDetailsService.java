@@ -8,14 +8,15 @@ import se.iths.Repository.PlayerRepository;
 import se.iths.entitys.PlayerEntity;
 
 @Service
-public class FootballUserDetailsService implements UserDetailsService {
+public class FootballPlayerDetailsService implements UserDetailsService {
 
 
     private final PlayerRepository playerRepository;
 
-    public FootballUserDetailsService(PlayerRepository playerRepository) {
+    public FootballPlayerDetailsService(PlayerRepository playerRepository) {
         super();
         this.playerRepository = playerRepository;
+
     }
 
 
@@ -23,8 +24,9 @@ public class FootballUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         PlayerEntity playerEntity = (PlayerEntity) playerRepository.findByUserName(username);
         if (playerEntity == null) {
-            throw new UsernameNotFoundException("Can't find user with username: " + "username");
+            throw new UsernameNotFoundException("Can't find player with username: " + "username");
         }
-        return new FootballUserPrincipal(playerEntity);
+        return new FootballPlayerPrincipal(playerEntity);
+
     }
 }

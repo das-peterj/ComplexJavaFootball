@@ -23,6 +23,25 @@ public class OwnerEntity {
     @OneToMany(mappedBy = "owners")
     private Set<TeamEntity> teams = new HashSet<>();
 
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<RoleEntity> roles = new HashSet<>();
+
+    public void addRole(RoleEntity role){
+        roles.add(role);
+        role.getOwners().add(this);
+    }
+    public void removeRole(RoleEntity role){
+        roles.remove(role);
+        role.getOwners().remove(this);
+    }
 
     public Set<TeamEntity> getTeams() {
         return teams;

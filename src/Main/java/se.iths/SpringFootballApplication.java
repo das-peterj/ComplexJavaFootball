@@ -20,6 +20,7 @@ public class SpringFootballApplication {
     public CommandLineRunner setUpRole(RoleRepository roleRepository) {
         return (args) -> {
 
+            roleRepository.save(new RoleEntity("ROLE_ADMIN"));
             roleRepository.save(new RoleEntity("ROLE_PLAYER"));
             roleRepository.save(new RoleEntity("ROLE_MANAGER"));
             roleRepository.save(new RoleEntity("ROLE_OWNER"));

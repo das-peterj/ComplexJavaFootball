@@ -19,7 +19,7 @@ public class LeagueService {
     }
 
     public LeagueEntity createLeague(LeagueEntity leagueEntity){
-        // add role in future
+
         return leagueRepository.save(leagueEntity);
     }
     public void deleteLeague(Long id) {

@@ -15,11 +15,11 @@ public class RoleEntity{
     private Long id;
     private String role;
 
-//    @ManyToMany(mappedBy = "roles")
-//    private Set<OwnerEntity> owners;
-//
-//    @ManyToMany(mappedBy = "roles")
-//    private Set<ManagerEntity> managers;
+    @ManyToMany(mappedBy = "roles")
+    private Set<OwnerEntity> owners;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<ManagerEntity> managers;
 
     @ManyToMany(mappedBy = "roles")
     private Set<PlayerEntity> players;
@@ -45,23 +45,23 @@ public class RoleEntity{
     public void setRole(String role) {
         this.role = role;
     }
-//    @JsonIgnore
-//    public Set<OwnerEntity> getOwners() {
-//        return owners;
-//    }
-//
-//    public void setOwners(Set<OwnerEntity> owners) {
-//        this.owners = owners;
-//    }
-//
-//    @JsonIgnore
-//    public Set<ManagerEntity> getManagers() {
-//        return managers;
-//    }
-//
-//    public void setManagers(Set<ManagerEntity> managers) {
-//        this.managers = managers;
-//    }
+    @JsonIgnore
+    public Set<OwnerEntity> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(Set<OwnerEntity> owners) {
+        this.owners = owners;
+    }
+
+    @JsonIgnore
+    public Set<ManagerEntity> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(Set<ManagerEntity> managers) {
+        this.managers = managers;
+    }
 
     @JsonIgnore
     public Set<PlayerEntity> getPlayers() {

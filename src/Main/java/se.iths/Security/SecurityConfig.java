@@ -12,9 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final FootballUserDetailsService playerDetailService;
+    private final FootballPlayerDetailsService playerDetailService;
 
-    public SecurityConfig(FootballUserDetailsService playerDetailService) {
+    public SecurityConfig(FootballPlayerDetailsService playerDetailService) {
         this.playerDetailService = playerDetailService;
     }
 
@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/players").permitAll()
+                .antMatchers("/", "/leagues").permitAll()
                 .antMatchers("/player").hasRole("PLAYER")
                 .antMatchers("/manager").hasRole("MANAGER")
                 .antMatchers("/owner").hasRole("OWNER")
