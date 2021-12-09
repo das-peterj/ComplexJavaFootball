@@ -28,6 +28,19 @@ public class ManagerEntity {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 
+    public ManagerEntity(Long id, String fullName, String phoneNumber, String age, String email, String userName, String password) {
+        this.id = id;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public ManagerEntity() {
+    }
+
     public void addRole(RoleEntity role){
         roles.add(role);
         role.getManagers().add(this);

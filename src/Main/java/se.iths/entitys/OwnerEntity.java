@@ -43,6 +43,19 @@ public class OwnerEntity {
         role.getOwners().remove(this);
     }
 
+    public OwnerEntity(Long id, String fullName, String netWorth, String phoneNumber, String age, String userName, String password) {
+        this.id = id;
+        this.fullName = fullName;
+        this.netWorth = netWorth;
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public OwnerEntity() {
+    }
+
     public Set<TeamEntity> getTeams() {
         return teams;
     }

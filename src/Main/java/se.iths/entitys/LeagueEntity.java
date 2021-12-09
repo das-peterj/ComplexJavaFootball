@@ -16,6 +16,15 @@ public class LeagueEntity {
     @OneToMany(mappedBy = "leagues")
     private Set<TeamEntity> teams = new HashSet<>();
 
+    public LeagueEntity(Long id, String leagueName, String country) {
+        this.id = id;
+        this.leagueName = leagueName;
+        this.country = country;
+    }
+
+    public LeagueEntity() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/leagues").permitAll()
+                .antMatchers("/", "/leagues","/teams").permitAll()
                 .antMatchers("/player").hasRole("PLAYER")
                 .antMatchers("/manager").hasRole("MANAGER")
                 .antMatchers("/owner").hasRole("OWNER")

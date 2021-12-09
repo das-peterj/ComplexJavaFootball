@@ -39,6 +39,12 @@ public class TeamEntity {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<SponsorEntity> sponsors;
 
+    public TeamEntity(Long id, String name, String teamValue) {
+        this.id = id;
+        this.name = name;
+        this.teamValue = teamValue;
+    }
+
     public TeamEntity (){}
 
     public OwnerEntity getOwners() {

@@ -38,6 +38,18 @@ public class PlayerEntity {
         role.getPlayers().remove(this);
     }
 
+    public PlayerEntity(Long id, String fullName, String position, String marketValue, String userName, String password) {
+        this.id = id;
+        this.fullName = fullName;
+        this.position = position;
+        this.marketValue = marketValue;
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public PlayerEntity() {
+    }
+
     public Set<RoleEntity> getRoles() {
         return roles;
     }

@@ -16,14 +16,11 @@ public class SponsorEntity {
     private List<TeamEntity> teamEntities;
 
     public SponsorEntity(){}
-    /*@ManyToMany(mappedBy = "sponsors")
-    private Set<TeamEntity> teamEntities;
 
-    public Set<TeamEntity> getTeamEntities() {
-        return teamEntities;
+    public SponsorEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
     }
-    */
-
 
     public void setTeamEntities(TeamEntity teamEntity) {
         }
