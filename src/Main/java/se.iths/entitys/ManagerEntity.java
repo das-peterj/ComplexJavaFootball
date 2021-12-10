@@ -42,8 +42,8 @@ public class ManagerEntity {
     }
 
     public void addRole(RoleEntity role){
-        roles.add(role);
-        role.getManagers().add(this);
+        this.roles.add(role);
+        //role.getManagers().add(this);
     }
     public void removeRole(RoleEntity role){
         roles.remove(role);

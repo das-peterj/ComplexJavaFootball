@@ -41,12 +41,9 @@ public class SpringFootballApplication {
                                            PlayerRepository playerRepository) {
         return (args) -> {
 
-            roleRepository.save(new RoleEntity("ROLE_ADMIN"));
-            roleRepository.save(new RoleEntity("ROLE_PLAYER"));
-            roleRepository.save(new RoleEntity("ROLE_MANAGER"));
-            roleRepository.save(new RoleEntity("ROLE_OWNER"));
-
-
+            RoleEntity rolePlayer = new RoleEntity("ROLE_PLAYER");
+            RoleEntity roleManager = new RoleEntity("ROLE_MANAGER");
+            RoleEntity roleOwner = new RoleEntity("ROLE_OWNER");
 
             LeagueEntity league1 = new LeagueEntity(1L, "Premier League", "England");
             LeagueEntity league2 = new LeagueEntity(2L, "Bundesliga", "Germany");
@@ -63,9 +60,9 @@ public class SpringFootballApplication {
             ManagerEntity manager1 = new ManagerEntity(1L, "Xavi Hernandez", "78623167","41","xavi.barcelona@barcelona.com","xavi","brain");
             ManagerEntity manager2 = new ManagerEntity(2L, "Pep Guardiola", "852185190", "49", "pep.city@city.com", "pep", "guard");
             ManagerEntity manager3 = new ManagerEntity(3L, "Mourinho", "072519251", "55", "morreinho@gmail.com", "morre", "roma");
-            ManagerEntity manager4 = new ManagerEntity(3L, "Luis Enrique", "072519222", "45", "LuisEnrique@gmail.com", "LuisQ", "Spain321");
-            ManagerEntity manager5 = new ManagerEntity(3L, "Diego Simeone", "0728287322", "50", "DiegoSimeone@gmail.com", "Diegoooo", "Athelticoooo");
-            ManagerEntity manager6 = new ManagerEntity(3L, "Jurgen klopp", "092727371", "49", "jurgenklopp@gmail.com", "JurgenLiv", "klopp-pool");
+            ManagerEntity manager4 = new ManagerEntity(4L, "Luis Enrique", "072519222", "45", "LuisEnrique@gmail.com", "LuisQ", "Spain321");
+            ManagerEntity manager5 = new ManagerEntity(5L, "Diego Simeone", "0728287322", "50", "DiegoSimeone@gmail.com", "Diegoooo", "Athelticoooo");
+            ManagerEntity manager6 = new ManagerEntity(6L, "Jurgen klopp", "092727371", "49", "jurgenklopp@gmail.com", "JurgenLiv", "klopp-pool");
 
             TeamEntity team1 = new TeamEntity(1L,"Arsenal","1580m");
             TeamEntity team2 = new TeamEntity(2L,"Dortmund","2517m");
@@ -83,10 +80,60 @@ public class SpringFootballApplication {
             PlayerEntity player7 = new PlayerEntity(7L, "Victor Lindelöf", "CB", "20m", "lindanlof", "sverigekapten");
             PlayerEntity player8 = new PlayerEntity(8L, "Trent Alexander Arnold", "RB", "77m", "klopp", "livapool");
             PlayerEntity player9 = new PlayerEntity(9L, "Manuel Neuer", "GK", "60m", "neuerrrr", "bayernmia");
-            PlayerEntity player10 = new PlayerEntity(11L, "Zlatan Ibrahimovic", "ST", "40m", "malmoezlatan", "zlattan");
-            PlayerEntity player11 = new PlayerEntity(12L, "Robert Lewandowski", "ST", "110m", "lewangoalski", "miasanmia");
-            PlayerEntity player12 = new PlayerEntity(13L, "Andres Iniesta", "CM", "30m", "iniadres", "barca");
+            PlayerEntity player10 = new PlayerEntity(10L, "Zlatan Ibrahimovic", "ST", "40m", "malmoezlatan", "zlattan");
+            PlayerEntity player11 = new PlayerEntity(11L, "Robert Lewandowski", "ST", "110m", "lewangoalski", "miasanmia");
+            PlayerEntity player12 = new PlayerEntity(12L, "Andres Iniesta", "CM", "30m", "iniadres", "barca");
 
+
+            player1.addRole(rolePlayer);
+            player2.addRole(rolePlayer);
+            player3.addRole(rolePlayer);
+            player4.addRole(rolePlayer);
+            player5.addRole(rolePlayer);
+            player6.addRole(rolePlayer);
+            player7.addRole(rolePlayer);
+            player8.addRole(rolePlayer);
+            player9.addRole(rolePlayer);
+            player10.addRole(rolePlayer);
+            player11.addRole(rolePlayer);
+            player12.addRole(rolePlayer);
+
+
+
+            manager1.addRole(roleManager);
+            manager2.addRole(roleManager);
+            manager3.addRole(roleManager);
+            manager4.addRole(roleManager);
+            manager5.addRole(roleManager);
+            manager6.addRole(roleManager);
+
+            owner1.addRole(roleOwner);
+            owner2.addRole(roleOwner);
+            owner3.addRole(roleOwner);
+
+//            rolePlayer.addRoleToPlayer(player1);
+//            rolePlayer.addRoleToPlayer(player2);
+//            rolePlayer.addRoleToPlayer(player3);
+//            rolePlayer.addRoleToPlayer(player4);
+//            rolePlayer.addRoleToPlayer(player5);
+//            rolePlayer.addRoleToPlayer(player6);
+//            rolePlayer.addRoleToPlayer(player7);
+//            rolePlayer.addRoleToPlayer(player8);
+//            rolePlayer.addRoleToPlayer(player9);
+//            rolePlayer.addRoleToPlayer(player10);
+//            rolePlayer.addRoleToPlayer(player11);
+//            rolePlayer.addRoleToPlayer(player12);
+
+//            roleManager.addRoleToManager(manager1);
+//            roleManager.addRoleToManager(manager2);
+//            roleManager.addRoleToManager(manager3);
+//            roleManager.addRoleToManager(manager4);
+//            roleManager.addRoleToManager(manager5);
+//            roleManager.addRoleToManager(manager6);
+//
+//            roleOwner.addRoleToOwner(owner1);
+////          roleOwner.addRoleToOwner(owner2);
+////          roleOwner.addRoleToOwner(owner3);
 
             team1.addLeague(league1);
             team2.addLeague(league2);
@@ -174,6 +221,10 @@ public class SpringFootballApplication {
             playerRepository.save(player10);
             playerRepository.save(player11);
             playerRepository.save(player12);
+
+            roleRepository.save(roleManager);
+            roleRepository.save(rolePlayer);
+            roleRepository.save(roleOwner);
 
         };
     }

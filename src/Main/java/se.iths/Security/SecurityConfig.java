@@ -33,12 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/leagues","/teams", "/players", "/managers", "/owners").permitAll()
-                .antMatchers( "/sponsors", "/sponsors/*", "/sponsors/*/*/*").permitAll()
-                .antMatchers( "/teams", "/teams/*", "/teams/*/*/*").permitAll()
-//                .antMatchers("/player").hasRole("PLAYER")
-//                .antMatchers("/manager").hasRole("MANAGER")
-//                .antMatchers("/owner").hasRole("OWNER")
+                .antMatchers("/","/sponsors", "/leagues","/teams", "/players", "/managers", "/owners").permitAll()
+//                .antMatchers("/players", "/players/*", "/players/*/*/*").hasRole("PLAYER")
+//                .antMatchers(
+//                        "/players", "/players/*", "/players/*/*/*",
+//                        "/managers", "/managers/*", "/managers/*/*").hasRole("MANAGER")
+//                .antMatchers(
+//                        "/players", "/players/*", "/players/*/*/*",
+//                        "/managers", "/managers/*", "/managers/*/*", "/owners", "/owners/*" , "/owners/*/*").hasRole("OWNER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

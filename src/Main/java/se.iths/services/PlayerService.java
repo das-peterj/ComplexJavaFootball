@@ -32,6 +32,7 @@ public class PlayerService {
         playerEntity.addRole(roleToAdd);
         return playerRepository.save(playerEntity);
     }
+
     public void deletePlayer(Long id) {
         PlayerEntity foundPlayer = playerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         playerRepository.deleteById(foundPlayer.getId());

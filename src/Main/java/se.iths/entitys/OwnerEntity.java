@@ -35,8 +35,8 @@ public class OwnerEntity {
     private Set<RoleEntity> roles = new HashSet<>();
 
     public void addRole(RoleEntity role){
-        roles.add(role);
-        role.getOwners().add(this);
+        this.roles.add(role);
+        // role.getOwners().add(this);
     }
     public void removeRole(RoleEntity role){
         roles.remove(role);
@@ -120,7 +120,4 @@ public class OwnerEntity {
         this.password = password;
     }
 
-
-    public void addOwner(TeamEntity foundTeam) {
-    }
 }

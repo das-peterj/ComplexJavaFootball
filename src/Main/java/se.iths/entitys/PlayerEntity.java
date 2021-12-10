@@ -29,8 +29,8 @@ public class PlayerEntity {
     private Set<RoleEntity> roles = new HashSet<>();
 
     public void addRole(RoleEntity role) {
-        roles.add(role);
-        role.getPlayers().add(this);
+        this.roles.add(role);
+//        role.getPlayers().add(this);
     }
 
     public void removeRole(RoleEntity role) {

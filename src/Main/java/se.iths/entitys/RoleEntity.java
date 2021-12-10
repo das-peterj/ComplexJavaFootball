@@ -2,8 +2,8 @@ package se.iths.entitys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,19 +16,34 @@ public class RoleEntity{
     private String role;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<OwnerEntity> owners;
+    private Set<OwnerEntity> owners = new HashSet<>();
 
     @ManyToMany(mappedBy = "roles")
-    private Set<ManagerEntity> managers;
+    private Set<ManagerEntity> managers = new HashSet<>();
 
     @ManyToMany(mappedBy = "roles")
-    private Set<PlayerEntity> players;
+    private Set<PlayerEntity> players = new HashSet<>();
 
     public RoleEntity(String role) {
         this.role = role;
     }
 
     public RoleEntity() {}
+
+//    public void addRoleToPlayer(PlayerEntity playerEntity) {
+//        players.add(playerEntity);
+//        playerEntity.addRole(this);
+//    }
+//
+//    public void addRoleToManager(ManagerEntity managerEntity) {
+//        managers.add(managerEntity);
+//        managerEntity.addRole(this);
+//    }
+//
+//    public void addRoleToOwner(OwnerEntity ownerEntity) {
+//        owners.add(ownerEntity);
+//        ownerEntity.addRole(this);
+//    }
 
     public Long getId() {
         return id;
@@ -45,6 +60,7 @@ public class RoleEntity{
     public void setRole(String role) {
         this.role = role;
     }
+
     @JsonIgnore
     public Set<OwnerEntity> getOwners() {
         return owners;
