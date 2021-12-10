@@ -32,12 +32,12 @@ public class TeamEntity {
     private ManagerEntity managerEntity;
 
 
-    // Fix, not complete. Cannot add sponsors to teams
-    /*@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @ManyToMany(mappedBy = "teams")
     private Set<SponsorEntity> sponsors = new HashSet<>();
-     */
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<SponsorEntity> sponsors;
+
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<SponsorEntity> sponsors;
 
     public TeamEntity(Long id, String name, String teamValue) {
         this.id = id;
@@ -46,6 +46,10 @@ public class TeamEntity {
     }
 
     public TeamEntity (){}
+
+    public Set<SponsorEntity> getSponsors() {
+        return sponsors;
+    }
 
     public OwnerEntity getOwners() {
         return owners;
@@ -73,12 +77,11 @@ public class TeamEntity {
         managerEntity.setTeam(this);
     }
 
+    public void addSponsor(SponsorEntity sponsor) {
+        sponsors.add(sponsor);
+    }
     //behövs nog ändras lite om en sponsor ska kunna vara sponsor på flera teams
     // då detta antagligen skriver över den nuvarande sponsoren
-    public void addSponsor(SponsorEntity sponsorEntity) {
-        this.sponsors.add(sponsorEntity);
-        sponsorEntity.setTeamEntities(this);
-    }
 
     public Long getId() {
         return id;
@@ -128,11 +131,5 @@ public class TeamEntity {
         this.managerEntity = managerEntity;
     }
 
-    public List<SponsorEntity> getSponsors() {
-        return sponsors;
-    }
 
-    public void setSponsors(List<SponsorEntity> sponsors) {
-        this.sponsors = sponsors;
-    }
 }

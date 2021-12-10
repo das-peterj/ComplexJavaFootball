@@ -65,13 +65,14 @@ public class SponsorController {
         return new ResponseEntity<>(allSponsors, HttpStatus.OK);
     }
 
+
     @PutMapping("/{sponsorId}/addSponsorToTeam/{teamId}")
     public SponsorEntity addSponsorToTeam(@PathVariable Long sponsorId, @PathVariable Long teamId) {
         SponsorEntity foundSponsor = sponsorService.findSponsorById(sponsorId);
-
         TeamEntity foundTeam = teamService.findTeamById(teamId);
 
-        foundTeam.addSponsor(foundSponsor);
+        foundSponsor.addTeam(foundTeam);
+//        System.out.println(foundSponsor.getName() + foundTeam.getName());
 
         return sponsorRepository.save(foundSponsor);
     }

@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import se.iths.Controller.SponsorController;
 import se.iths.Repository.LeagueRepository;
 import se.iths.Repository.ManagerRepository;
 import se.iths.Repository.OwnerRepository;
@@ -20,6 +22,8 @@ import se.iths.entitys.RoleEntity;
 import se.iths.entitys.SponsorEntity;
 import se.iths.entitys.TeamEntity;
 
+import java.util.Set;
+
 
 @SpringBootApplication(exclude =SecurityAutoConfiguration.class)
 public class SpringFootballApplication {
@@ -28,26 +32,21 @@ public class SpringFootballApplication {
         SpringApplication.run(SpringFootballApplication.class, args);
     }
 
-
     @Bean
-    public CommandLineRunner setUpRole(RoleRepository roleRepository) {
-        return (args) -> {
-
-            roleRepository.save(new RoleEntity("ROLE_ADMIN"));
-            roleRepository.save(new RoleEntity("ROLE_PLAYER"));
-            roleRepository.save(new RoleEntity("ROLE_MANAGER"));
-            roleRepository.save(new RoleEntity("ROLE_OWNER"));
-        };
-    }
-
-    @Bean
-    public CommandLineRunner setUpFootball(LeagueRepository leagueRepository,
+    public CommandLineRunner setUpFootball(RoleRepository roleRepository, LeagueRepository leagueRepository,
                                            TeamRepository teamRepository,
                                            ManagerRepository managerRepository,
                                            OwnerRepository ownerRepository,
                                            SponsorRepository sponsorRepository,
                                            PlayerRepository playerRepository) {
         return (args) -> {
+
+            roleRepository.save(new RoleEntity("ROLE_ADMIN"));
+            roleRepository.save(new RoleEntity("ROLE_PLAYER"));
+            roleRepository.save(new RoleEntity("ROLE_MANAGER"));
+            roleRepository.save(new RoleEntity("ROLE_OWNER"));
+
+
 
             LeagueEntity league1 = new LeagueEntity(1L, "Premier League", "England");
             LeagueEntity league2 = new LeagueEntity(2L, "Bundesliga", "Germany");
@@ -68,15 +67,12 @@ public class SpringFootballApplication {
             ManagerEntity manager5 = new ManagerEntity(3L, "Diego Simeone", "0728287322", "50", "DiegoSimeone@gmail.com", "Diegoooo", "Athelticoooo");
             ManagerEntity manager6 = new ManagerEntity(3L, "Jurgen klopp", "092727371", "49", "jurgenklopp@gmail.com", "JurgenLiv", "klopp-pool");
 
-
-
             TeamEntity team1 = new TeamEntity(1L,"Arsenal","1580m");
             TeamEntity team2 = new TeamEntity(2L,"Dortmund","2517m");
             TeamEntity team3 = new TeamEntity(3L,"Barcelona","611m");
             TeamEntity team4 = new TeamEntity(4L,"Real Madrid","589m");
             TeamEntity team5 = new TeamEntity(5L, "Bayern Munchen", "691m");
             TeamEntity team6 = new TeamEntity(6L,"Newcastle","8243724m");
-
 
             PlayerEntity player1 = new PlayerEntity(1L, "Lionel Messi", "ST","150m","lionelmessi","psg");
             PlayerEntity player2 = new PlayerEntity(2L, "Cristiano Ronaldo", "ST","140m","c.ronaldo","manU");
@@ -99,28 +95,31 @@ public class SpringFootballApplication {
             team5.addLeague(league2);
             team6.addLeague(league1);
 
-            team1.addPlayer(player1);
-//            team1.addPlayer(player12);
-//            team2.addPlayer(player2);
-//            team2.addPlayer(player11);
-//            team3.addPlayer(player3);
-//            team3.addPlayer(player10);
-//            team4.addPlayer(player4);
-//            team4.addPlayer(player9);
-//            team5.addPlayer(player5);
-//            team5.addPlayer(player8);
-//            team6.addPlayer(player6);
-//            team6.addPlayer(player7);
+            player1.addTeam(team1);
+            player2.addTeam(team1);
+            player3.addTeam(team2);
+            player4.addTeam(team2);
+            player5.addTeam(team3);
+            player6.addTeam(team3);
+            player7.addTeam(team4);
+            player8.addTeam(team4);
+            player9.addTeam(team5);
+            player10.addTeam(team5);
+            player11.addTeam(team6);
+            player12.addTeam(team6);
 
-//            team1.addSponsor(sponsor1);
-////            team1.addSponsor(sponsor3);
-//            team2.addSponsor(sponsor2);
-//            team3.addSponsor(sponsor1);
-////            team3.addSponsor(sponsor2);
-//            team4.addSponsor(sponsor3);
-//            team5.addSponsor(sponsor2);
-////            team6.addSponsor(sponsor1);
-//            team6.addSponsor(sponsor3);
+            sponsor1.addTeam(team1);
+            sponsor2.addTeam(team1);
+            sponsor2.addTeam(team2);
+            sponsor3.addTeam(team2);
+            sponsor3.addTeam(team3);
+            sponsor1.addTeam(team3);
+            sponsor3.addTeam(team4);
+            sponsor3.addTeam(team4);
+            sponsor1.addTeam(team5);
+            sponsor2.addTeam(team5);
+            sponsor3.addTeam(team6);
+            sponsor2.addTeam(team6);
 
             team1.addManager(manager1);
             team2.addManager(manager2);
@@ -148,9 +147,9 @@ public class SpringFootballApplication {
             leagueRepository.save(league2);
             leagueRepository.save(league3);
 
-//            sponsorRepository.save(sponsor1);
-//            sponsorRepository.save(sponsor2);
-//            sponsorRepository.save(sponsor3);
+            sponsorRepository.save(sponsor1);
+            sponsorRepository.save(sponsor2);
+            sponsorRepository.save(sponsor3);
 
             ownerRepository.save(owner1);
             ownerRepository.save(owner2);
@@ -163,86 +162,19 @@ public class SpringFootballApplication {
             managerRepository.save(manager5);
             managerRepository.save(manager6);
 
-            // playerRepository.save(player1);
-//            playerRepository.save(player2);
-//            playerRepository.save(player3);
-//            playerRepository.save(player4);
-//            playerRepository.save(player5);
-//            playerRepository.save(player6);
-//            playerRepository.save(player7);
-//            playerRepository.save(player8);
-//            playerRepository.save(player9);
-//            playerRepository.save(player10);
-//            playerRepository.save(player11);
-//            playerRepository.save(player12);
+            playerRepository.save(player1);
+            playerRepository.save(player2);
+            playerRepository.save(player3);
+            playerRepository.save(player4);
+            playerRepository.save(player5);
+            playerRepository.save(player6);
+            playerRepository.save(player7);
+            playerRepository.save(player8);
+            playerRepository.save(player9);
+            playerRepository.save(player10);
+            playerRepository.save(player11);
+            playerRepository.save(player12);
 
         };
     }
-
-//    @Bean
-//    public CommandLineRunner setUpTeams(TeamRepository teamRepository) {
-//        return (args) -> {
-//
-//            teamRepository.save( new TeamEntity(1L,"Arsenal","1580m"));
-//            teamRepository.save(new TeamEntity(2L,"Dortmund","2517m"));
-//            teamRepository.save(new TeamEntity(3L,"Barcelona","611m"));
-//            teamRepository.save(new TeamEntity(4L,"Real Madrid","589m"));
-//            teamRepository.save(new TeamEntity(5L, "Bayern Munchen", "691m"));
-//            teamRepository.save(new TeamEntity(6L,"Newcastle","8243724m"));
-//        };
-//    }
-
-//    @Bean
-//    public CommandLineRunner setUpManager(ManagerRepository managerRepository) {
-//        return (args) -> {
-//
-//            managerRepository.save(new ManagerEntity(1L, "Xavi Hernandez", "78623167","41","xavi.barcelona@barcelona.com","xavi","brain"));
-//            managerRepository.save(new ManagerEntity(2L, "Pep Guardiola", "852185190", "49", "pep.city@city.com", "pep", "guard"));
-//            managerRepository.save(new ManagerEntity(3L, "Mourinho", "072519251", "55", "morreinho@gmail.com", "morre", "roma"));
-//        };
-//    }
-//
-//    @Bean
-//    public CommandLineRunner setUpOwner(OwnerRepository ownerRepository) {
-//        return (args) -> {
-//
-//            ownerRepository.save(new OwnerEntity(1L, "Muharem", "1000000m","891273179","23","BigOwner","qwe"));
-//            ownerRepository.save(new OwnerEntity(2L, "Bin Ladin", "727272727m","261532312","69","BinLadin","weapons"));
-//            ownerRepository.save(new OwnerEntity(3L, "Sheikh", "96128m", "821765912", "23", "sheikoil", "oil"));
-//        };
-//    }
-//
-//    @Bean
-//    public CommandLineRunner setUpSponsor(SponsorRepository sponsorRepository) {
-//        return (args) -> {
-//
-//            sponsorRepository.save(new SponsorEntity(1L, "Nike"));
-//            sponsorRepository.save(new SponsorEntity(2L, "Adidas"));
-//            sponsorRepository.save(new SponsorEntity(3L, "Coca Cola"));
-//        };
-//    }
-//
-//    @Bean
-//    public CommandLineRunner setUpPlayer(PlayerRepository playerRepository){
-//        return (args) -> {
-//
-//
-//
-//            PlayerEntity player1 = new PlayerEntity(1L, "Lionel Messi", "ST","150m","lionelmessi","psg");
-//            playerRepository.save(new PlayerEntity(2L, "Cristiano Ronaldo", "ST","140m","c.ronaldo","manU"));
-//            playerRepository.save(new PlayerEntity(3L, "Neymar Junior", "LW", "100m", "NeymarJR", "psg123"));
-//            playerRepository.save(new PlayerEntity(4L, "Kevin De Bruyne", "CM","50m","KevinBruy","Bruyneee"));
-//            playerRepository.save(new PlayerEntity(5L, "Mohamed Salah", "RW","70m","MohamedS","Salah123"));
-//            playerRepository.save(new PlayerEntity(6L, "Alexander Isak", "ST", "20m", "Alexandeeer", "IsakA"));
-//            playerRepository.save(new PlayerEntity(7L, "Victor Lindelöf", "CB", "20m", "lindanlof", "sverigekapten"));
-//            playerRepository.save(new PlayerEntity(8L, "Trent Alexander Arnold", "RB", "77m", "klopp", "livapool"));
-//            playerRepository.save(new PlayerEntity(9L, "Manuel Neuer", "GK", "60m", "neuerrrr", "bayernmia"));
-//            playerRepository.save(new PlayerEntity(11L, "Zlatan Ibrahimovic", "ST", "40m", "malmoezlatan", "zlattan"));
-//            playerRepository.save(new PlayerEntity(12L, "Robert Lewandowski", "ST", "110m", "lewangoalski", "miasanmia"));
-//            playerRepository.save(new PlayerEntity(13L, "Andres Iniesta", "CM", "30m", "iniadres", "barca"));
-//
-//
-//        };
-//    }
-
 }

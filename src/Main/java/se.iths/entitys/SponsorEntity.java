@@ -1,6 +1,9 @@
 package se.iths.entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,14 +15,28 @@ public class SponsorEntity {
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "sponsors")
-    private List<TeamEntity> teamEntities;
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name="teamAssign",
+            joinColumns = @JoinColumn(name = "sponsor_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private Set<TeamEntity> teams = new HashSet<>();
 
     public SponsorEntity(){}
 
     public SponsorEntity(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Set<TeamEntity> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<TeamEntity> teams) {
+        this.teams = teams;
     }
 
     public void setTeamEntities(TeamEntity teamEntity) {
@@ -40,5 +57,7 @@ public class SponsorEntity {
         this.name = name;
     }
 
-
+    public void addTeam(TeamEntity teamEntity) {
+        teams.add(teamEntity);
+    }
 }
