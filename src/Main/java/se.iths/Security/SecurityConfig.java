@@ -13,18 +13,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final FootballPlayerDetailsService playerDetailService;
+    private final FootballManagerDetailsService managerDetailsService;
+    private final FootballOwnerDetailsService ownerDetailsService;
 
-    public SecurityConfig(FootballPlayerDetailsService playerDetailService) {
+    public SecurityConfig(FootballPlayerDetailsService playerDetailService, FootballOwnerDetailsService ownerDetailsService, FootballManagerDetailsService managerDetailsService) {
         this.playerDetailService = playerDetailService;
+        this.ownerDetailsService = ownerDetailsService;
+        this.managerDetailsService = managerDetailsService;
     }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider =  new DaoAuthenticationProvider();
-        provider.setUserDetailsService(playerDetailService);
+      //  provider.setUserDetailsService(playerDetailService);
+      //  provider.setUserDetailsService(managerDetailsService);
+        provider.setUserDetailsService(ownerDetailsService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
         return provider;
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

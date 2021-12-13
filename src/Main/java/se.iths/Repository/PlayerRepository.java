@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PlayerRepository extends CrudRepository<PlayerEntity, Long> {
-    List<PlayerEntity> findByUserName(String name);
+    PlayerEntity findByUserName(String name);
 }

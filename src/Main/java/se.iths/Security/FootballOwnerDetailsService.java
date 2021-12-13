@@ -19,7 +19,8 @@ public class FootballOwnerDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        OwnerEntity ownerEntity = (OwnerEntity) ownerRepository.findByUserName(username);
+        OwnerEntity ownerEntity = ownerRepository.findByUserName(username);
+        System.out.println(ownerEntity.toString());
         if (ownerEntity == null) {
             throw new UsernameNotFoundException("Can't find owner with username: " + "username");
         }

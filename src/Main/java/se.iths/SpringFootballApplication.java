@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import se.iths.Controller.SponsorController;
 import se.iths.Repository.LeagueRepository;
 import se.iths.Repository.ManagerRepository;
@@ -25,12 +26,14 @@ import se.iths.entitys.TeamEntity;
 import java.util.Set;
 
 
-@SpringBootApplication(exclude =SecurityAutoConfiguration.class)
+@SpringBootApplication
 public class SpringFootballApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringFootballApplication.class, args);
     }
+
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Bean
     public CommandLineRunner setUpFootball(RoleRepository roleRepository, LeagueRepository leagueRepository,
@@ -53,7 +56,7 @@ public class SpringFootballApplication {
             SponsorEntity sponsor2 =new SponsorEntity(2L, "Adidas");
             SponsorEntity sponsor3 =new SponsorEntity(3L, "Coca");
 
-            OwnerEntity owner1 = new OwnerEntity(1L, "Muharem", "1000000m","891273179","23","BigOwner","qwe");
+            OwnerEntity owner1 = new OwnerEntity(1L, "Muharem", "1000000m","891273179","23","BigOwner",passwordEncoder.encode("qwe"));
             OwnerEntity owner2 = new OwnerEntity(2L, "Bin Ladin", "727272727m","261532312","69","BinLadin","weapons");
             OwnerEntity owner3 = new OwnerEntity(3L, "Sheikh", "96128m", "821765912", "23", "sheikoil", "oil");
 

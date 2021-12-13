@@ -6,5 +6,5 @@ import se.iths.entitys.OwnerEntity;
 import java.util.List;
 @Repository
 public interface OwnerRepository extends CrudRepository <OwnerEntity, Long> {
-    List <OwnerEntity> findByUserName(String userName);
+    OwnerEntity findByUserName(String userName);
 }

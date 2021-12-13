@@ -22,7 +22,7 @@ public class FootballPlayerDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        PlayerEntity playerEntity = (PlayerEntity) playerRepository.findByUserName(username);
+        PlayerEntity playerEntity = playerRepository.findByUserName(username);
         if (playerEntity == null) {
             throw new UsernameNotFoundException("Can't find player with username: " + "username");
         }

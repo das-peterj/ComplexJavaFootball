@@ -47,7 +47,7 @@ public class PlayerService {
         return playerRepository.findAll();
     }
 
-    public List<PlayerEntity> findPlayerByFullName(String fullName){
+    public PlayerEntity findPlayerByFullName(String fullName){
         return playerRepository.findByUserName(fullName);
     }
 

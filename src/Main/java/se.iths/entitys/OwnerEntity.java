@@ -56,6 +56,19 @@ public class OwnerEntity {
     public OwnerEntity() {
     }
 
+    @Override
+    public String toString() {
+        return "OwnerEntity{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", netWorth='" + netWorth + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", age='" + age + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
     public Set<TeamEntity> getTeams() {
         return teams;
     }
