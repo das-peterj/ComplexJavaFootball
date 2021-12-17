@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class ManagerEntity {
+public class ManagerEntity extends UserEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,25 +17,24 @@ public class ManagerEntity {
     private String phoneNumber;
     private String age;
     private String email;
-    private String userName;
-    private String password;
+
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "teamId", referencedColumnName = "id")
+    @JoinColumn(name = "team_id", referencedColumnName = "id")
     private TeamEntity team;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 
-    public ManagerEntity(Long id, String fullName, String phoneNumber, String age, String email, String userName, String password) {
+
+    public ManagerEntity(Long id, String fullName, String phoneNumber, String age, String email) {
         this.id = id;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.age = age;
         this.email = email;
-        this.userName = userName;
-        this.password = password;
     }
 
     public ManagerEntity() {
@@ -104,22 +103,6 @@ public class ManagerEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public void addTeam(TeamEntity foundTeam) {

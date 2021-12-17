@@ -40,7 +40,7 @@ public class TeamService {
         return teamRepository.findAll();
     }
 
-    public List<TeamEntity> findTeamByName(String teamName){
+    public TeamEntity findTeamByName(String teamName){
         return teamRepository.findByName(teamName);
     }
 

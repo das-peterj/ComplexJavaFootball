@@ -36,7 +36,7 @@ public class SponsorService {
         return sponsorRepository.findAll();
     }
 
-    public List<SponsorEntity> findSponsorByName(String name) {
+    public SponsorEntity findSponsorByName(String name) {
         return sponsorRepository.findByName(name);
     }
 }

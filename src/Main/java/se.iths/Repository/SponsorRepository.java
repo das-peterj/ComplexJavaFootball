@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface SponsorRepository extends CrudRepository<SponsorEntity, Long> {
-    List<SponsorEntity> findByName(String name);
+    SponsorEntity findByName(String name);
 }

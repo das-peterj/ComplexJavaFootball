@@ -48,7 +48,7 @@ public class PlayerService {
     }
 
     public PlayerEntity findPlayerByFullName(String fullName){
-        return playerRepository.findByUserName(fullName);
+        return playerRepository.findByFullName(fullName);
     }
 
 }

@@ -50,6 +50,10 @@ public class ManagerService {
 //    public List<ManagerEntity> findManagerByFullName(String fullName){
 //        return managerRepository.findByFullName(fullName);
 //    }
+    public ManagerEntity findManagerByUserName(String fullName){
+        return managerRepository.findByFullName(fullName);
+    }
+
 
 
 }

@@ -1,18 +1,21 @@
 package se.iths;
 
+import org.apache.tomcat.jni.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import se.iths.Controller.SponsorController;
+import se.iths.Repository.UserRepository;
 import se.iths.Repository.LeagueRepository;
-import se.iths.Repository.ManagerRepository;
-import se.iths.Repository.OwnerRepository;
-import se.iths.Repository.PlayerRepository;
 import se.iths.Repository.RoleRepository;
+import se.iths.Repository.OwnerRepository;
+import se.iths.Repository.ManagerRepository;
+import se.iths.Repository.PlayerRepository;
 import se.iths.Repository.SponsorRepository;
 import se.iths.Repository.TeamRepository;
 import se.iths.entitys.LeagueEntity;
@@ -23,8 +26,6 @@ import se.iths.entitys.RoleEntity;
 import se.iths.entitys.SponsorEntity;
 import se.iths.entitys.TeamEntity;
 
-import java.util.Set;
-
 
 @SpringBootApplication
 public class SpringFootballApplication {
@@ -33,15 +34,13 @@ public class SpringFootballApplication {
         SpringApplication.run(SpringFootballApplication.class, args);
     }
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
     @Bean
     public CommandLineRunner setUpFootball(RoleRepository roleRepository, LeagueRepository leagueRepository,
                                            TeamRepository teamRepository,
                                            ManagerRepository managerRepository,
                                            OwnerRepository ownerRepository,
                                            SponsorRepository sponsorRepository,
-                                           PlayerRepository playerRepository) {
+                                           PlayerRepository playerRepository, UserRepository userRepository) {
         return (args) -> {
 
             RoleEntity rolePlayer = new RoleEntity("ROLE_PLAYER");
@@ -56,16 +55,16 @@ public class SpringFootballApplication {
             SponsorEntity sponsor2 =new SponsorEntity(2L, "Adidas");
             SponsorEntity sponsor3 =new SponsorEntity(3L, "Coca");
 
-            OwnerEntity owner1 = new OwnerEntity(1L, "Muharem", "1000000m","891273179","23","BigOwner",passwordEncoder.encode("qwe"));
-            OwnerEntity owner2 = new OwnerEntity(2L, "Bin Ladin", "727272727m","261532312","69","BinLadin","weapons");
-            OwnerEntity owner3 = new OwnerEntity(3L, "Sheikh", "96128m", "821765912", "23", "sheikoil", "oil");
+            OwnerEntity owner1 = new OwnerEntity(1L, "Muharem", "1000000m","891273179","23");
+            OwnerEntity owner2 = new OwnerEntity(2L, "Bin Ladin", "727272727m","261532312","69");
+            OwnerEntity owner3 = new OwnerEntity(3L, "Sheikh", "96128m", "821765912", "23");
 
-            ManagerEntity manager1 = new ManagerEntity(1L, "Xavi Hernandez", "78623167","41","xavi.barcelona@barcelona.com","xavi","brain");
-            ManagerEntity manager2 = new ManagerEntity(2L, "Pep Guardiola", "852185190", "49", "pep.city@city.com", "pep", "guard");
-            ManagerEntity manager3 = new ManagerEntity(3L, "Mourinho", "072519251", "55", "morreinho@gmail.com", "morre", "roma");
-            ManagerEntity manager4 = new ManagerEntity(4L, "Luis Enrique", "072519222", "45", "LuisEnrique@gmail.com", "LuisQ", "Spain321");
-            ManagerEntity manager5 = new ManagerEntity(5L, "Diego Simeone", "0728287322", "50", "DiegoSimeone@gmail.com", "Diegoooo", "Athelticoooo");
-            ManagerEntity manager6 = new ManagerEntity(6L, "Jurgen klopp", "092727371", "49", "jurgenklopp@gmail.com", "JurgenLiv", "klopp-pool");
+            ManagerEntity manager1 = new ManagerEntity(1L, "Xavi Hernandez", "78623167","41","xavi.barcelona@barcelona.com");
+            ManagerEntity manager2 = new ManagerEntity(2L, "Pep Guardiola", "852185190", "49", "pep.city@city.com");
+            ManagerEntity manager3 = new ManagerEntity(3L, "Mourinho", "072519251", "55", "morreinho@gmail.com");
+            ManagerEntity manager4 = new ManagerEntity(4L, "Luis Enrique", "072519222", "45", "LuisEnrique@gmail.com");
+            ManagerEntity manager5 = new ManagerEntity(5L, "Diego Simeone", "0728287322", "50", "DiegoSimeone@gmail.com");
+            ManagerEntity manager6 = new ManagerEntity(6L, "Jurgen klopp", "092727371", "49", "jurgenklopp@gmail.com");
 
             TeamEntity team1 = new TeamEntity(1L,"Arsenal","1580m");
             TeamEntity team2 = new TeamEntity(2L,"Dortmund","2517m");
@@ -74,18 +73,18 @@ public class SpringFootballApplication {
             TeamEntity team5 = new TeamEntity(5L, "Bayern Munchen", "691m");
             TeamEntity team6 = new TeamEntity(6L,"Newcastle","8243724m");
 
-            PlayerEntity player1 = new PlayerEntity(1L, "Lionel Messi", "ST","150m","lionelmessi","psg");
-            PlayerEntity player2 = new PlayerEntity(2L, "Cristiano Ronaldo", "ST","140m","c.ronaldo","manU");
-            PlayerEntity player3 = new PlayerEntity(3L, "Neymar Junior", "LW", "100m", "NeymarJR", "psg123");
-            PlayerEntity player4 = new PlayerEntity(4L, "Kevin De Bruyne", "CM","50m","KevinBruy","Bruyneee");
-            PlayerEntity player5 = new PlayerEntity(5L, "Mohamed Salah", "RW","70m","MohamedS","Salah123");
-            PlayerEntity player6 = new PlayerEntity(6L, "Alexander Isak", "ST", "20m", "Alexandeeer", "IsakA");
-            PlayerEntity player7 = new PlayerEntity(7L, "Victor Lindelöf", "CB", "20m", "lindanlof", "sverigekapten");
-            PlayerEntity player8 = new PlayerEntity(8L, "Trent Alexander Arnold", "RB", "77m", "klopp", "livapool");
-            PlayerEntity player9 = new PlayerEntity(9L, "Manuel Neuer", "GK", "60m", "neuerrrr", "bayernmia");
-            PlayerEntity player10 = new PlayerEntity(10L, "Zlatan Ibrahimovic", "ST", "40m", "malmoezlatan", "zlattan");
-            PlayerEntity player11 = new PlayerEntity(11L, "Robert Lewandowski", "ST", "110m", "lewangoalski", "miasanmia");
-            PlayerEntity player12 = new PlayerEntity(12L, "Andres Iniesta", "CM", "30m", "iniadres", "barca");
+            PlayerEntity player1 = new PlayerEntity(1L, "Lionel Messi", "ST","150m");
+            PlayerEntity player2 = new PlayerEntity(2L, "Cristiano Ronaldo", "ST","140m");
+            PlayerEntity player3 = new PlayerEntity(3L, "Neymar Junior", "LW", "100m");
+            PlayerEntity player4 = new PlayerEntity(4L, "Kevin De Bruyne", "CM","50m");
+            PlayerEntity player5 = new PlayerEntity(5L, "Mohamed Salah", "RW","70m");
+            PlayerEntity player6 = new PlayerEntity(6L, "Alexander Isak", "ST", "20m");
+            PlayerEntity player7 = new PlayerEntity(7L, "Victor Lindelöf", "CB", "20m");
+            PlayerEntity player8 = new PlayerEntity(8L, "Trent Alexander Arnold", "RB", "77m");
+            PlayerEntity player9 = new PlayerEntity(9L, "Manuel Neuer", "GK", "60m");
+            PlayerEntity player10 = new PlayerEntity(10L, "Zlatan Ibrahimovic", "ST", "40m");
+            PlayerEntity player11 = new PlayerEntity(11L, "Robert Lewandowski", "ST", "110m");
+            PlayerEntity player12 = new PlayerEntity(12L, "Andres Iniesta", "CM", "30m");
 
 
             player1.addRole(rolePlayer);
@@ -101,6 +100,9 @@ public class SpringFootballApplication {
             player11.addRole(rolePlayer);
             player12.addRole(rolePlayer);
 
+
+            player1.setUserName("messi");
+            player1.setPassword("barca");
 
 
             manager1.addRole(roleManager);

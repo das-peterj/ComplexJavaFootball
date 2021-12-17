@@ -19,22 +19,23 @@ public class TeamEntity {
     @JoinColumn(name="league_id", referencedColumnName = "id")
     private LeagueEntity leagues;
 
-
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="owner_id", referencedColumnName = "id")
     private OwnerEntity owners;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "teams")
     private Set<PlayerEntity> players = new HashSet<>();
 
+    @JsonIgnore
     @OneToOne(mappedBy = "team")
     private ManagerEntity managerEntity;
 
-
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "teams")
     private Set<SponsorEntity> sponsors = new HashSet<>();
+
 
 //    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    private List<SponsorEntity> sponsors;

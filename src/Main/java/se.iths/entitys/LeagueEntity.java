@@ -1,4 +1,6 @@
 package se.iths.entitys;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +14,7 @@ public class LeagueEntity {
     private String leagueName;
     private String country;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "leagues")
     private Set<TeamEntity> teams = new HashSet<>();
 

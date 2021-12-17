@@ -7,31 +7,28 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final FootballPlayerDetailsService playerDetailService;
-    private final FootballManagerDetailsService managerDetailsService;
-    private final FootballOwnerDetailsService ownerDetailsService;
+    private final FootballUserDetailsService footballUserDetailsService;
+   // private final PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(FootballPlayerDetailsService playerDetailService, FootballOwnerDetailsService ownerDetailsService, FootballManagerDetailsService managerDetailsService) {
-        this.playerDetailService = playerDetailService;
-        this.ownerDetailsService = ownerDetailsService;
-        this.managerDetailsService = managerDetailsService;
+
+    public SecurityConfig(FootballUserDetailsService footballUserDetailsService) {
+        this.footballUserDetailsService = footballUserDetailsService;
+      //  this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider AuthenticationProvider() {
         DaoAuthenticationProvider provider =  new DaoAuthenticationProvider();
-      //  provider.setUserDetailsService(playerDetailService);
-      //  provider.setUserDetailsService(managerDetailsService);
-        provider.setUserDetailsService(ownerDetailsService);
+        provider.setUserDetailsService(footballUserDetailsService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
         return provider;
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,14 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/sponsors", "/leagues","/teams", "/players", "/managers", "/owners").permitAll()
-//                .antMatchers("/players", "/players/*", "/players/*/*/*").hasRole("PLAYER")
+                .antMatchers("/","/home", "/sponsors", "/leagues","/teams", "/players", "/managers", "/owners").permitAll()
+//                .antMatchers("/players", "/players/*", "/players/*/*/*", "/home", "/application").hasRole("PLAYER")
 //                .antMatchers(
 //                        "/players", "/players/*", "/players/*/*/*",
 //                        "/managers", "/managers/*", "/managers/*/*").hasRole("MANAGER")
 //                .antMatchers(
 //                        "/players", "/players/*", "/players/*/*/*",
-//                        "/managers", "/managers/*", "/managers/*/*", "/owners", "/owners/*" , "/owners/*/*").hasRole("OWNER")
+//                        "/managers", "/managers/*", "/managers/*/*", "/owners", "/owners/*" , "/owners/*/*", "/admin").hasRole("OWNER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -58,4 +55,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .permitAll();
     }
+
+
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return this.passwordEncoder;
+//    }
 }

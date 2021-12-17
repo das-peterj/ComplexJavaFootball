@@ -35,7 +35,7 @@ public class LeagueService {
         return leagueRepository.findAll();
     }
 
-    public List<LeagueEntity> findLeagueByName(String name){
-        return leagueRepository.findByLeagueName(name);
+    public LeagueEntity findByLeagueName(String leagueName){
+        return leagueRepository.findByLeagueName(leagueName);
     }
 }

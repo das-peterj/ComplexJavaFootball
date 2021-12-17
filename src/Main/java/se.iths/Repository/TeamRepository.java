@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TeamRepository extends CrudRepository<TeamEntity, Long> {
-    List<TeamEntity> findByName(String name);
+    TeamEntity findByName(String name);
 }

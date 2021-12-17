@@ -3,28 +3,27 @@ package se.iths.Security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import se.iths.entitys.OwnerEntity;
 import se.iths.entitys.RoleEntity;
+import se.iths.entitys.UserEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
-public class FootballOwnerPrincipal implements UserDetails {
+public class FootballUserPrincipal implements UserDetails {
 
-    private OwnerEntity ownerEntity;
+    private UserEntity userEntity;
 
-    public FootballOwnerPrincipal(OwnerEntity ownerEntity) {
+    public FootballUserPrincipal(UserEntity userEntity){
         super();
-        this.ownerEntity = ownerEntity;
-    }
+        this.userEntity = userEntity;
 
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<RoleEntity> roles = ownerEntity.getRoles();
+        Set<RoleEntity> roles = userEntity.getRoles();
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles.size());
-
         for (RoleEntity role : roles) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole().toUpperCase()));
         }
@@ -33,31 +32,32 @@ public class FootballOwnerPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.userEntity.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.userEntity.getUserName();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
+

@@ -29,11 +29,12 @@ public class OwnerController {
         this.ownerRepository = ownerRepository;
     }
 
-    @PostMapping("")
-    public ResponseEntity<OwnerEntity> createOwner(@RequestBody OwnerEntity owner){
-        OwnerEntity createdOwner = ownerService.createOwner(owner);
-        return new ResponseEntity<>(createdOwner, HttpStatus.CREATED);
-    }
+//    @PostMapping("")
+//    public ResponseEntity<OwnerEntity> createOwner(@RequestBody OwnerEntity owner){
+//        OwnerEntity createdOwner = ownerService.createOwner(owner);
+//        return new ResponseEntity<>(createdOwner, HttpStatus.CREATED);
+//    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteOwner(@PathVariable Long id) {
         OwnerEntity foundOwner = ownerService.findOwnerById(id);

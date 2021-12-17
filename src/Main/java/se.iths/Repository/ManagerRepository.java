@@ -10,6 +10,5 @@ import java.util.List;
 
 @Repository
 public interface ManagerRepository extends CrudRepository <ManagerEntity, Long> {
-
-  List<ManagerEntity> findByUserName(String userName);
+  ManagerEntity findByFullName(String fullName);
 }

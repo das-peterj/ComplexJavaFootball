@@ -15,6 +15,10 @@ public class RoleEntity{
     private Long id;
     private String role;
 
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserEntity> users = new HashSet<>();
+
     @ManyToMany(mappedBy = "roles")
     private Set<OwnerEntity> owners = new HashSet<>();
 
@@ -24,26 +28,19 @@ public class RoleEntity{
     @ManyToMany(mappedBy = "roles")
     private Set<PlayerEntity> players = new HashSet<>();
 
+    public Set<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<UserEntity> users) {
+        this.users = users;
+    }
+
     public RoleEntity(String role) {
         this.role = role;
     }
 
     public RoleEntity() {}
-
-//    public void addRoleToPlayer(PlayerEntity playerEntity) {
-//        players.add(playerEntity);
-//        playerEntity.addRole(this);
-//    }
-//
-//    public void addRoleToManager(ManagerEntity managerEntity) {
-//        managers.add(managerEntity);
-//        managerEntity.addRole(this);
-//    }
-//
-//    public void addRoleToOwner(OwnerEntity ownerEntity) {
-//        owners.add(ownerEntity);
-//        ownerEntity.addRole(this);
-//    }
 
     public Long getId() {
         return id;

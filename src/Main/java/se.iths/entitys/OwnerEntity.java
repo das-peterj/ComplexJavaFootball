@@ -1,5 +1,7 @@
 package se.iths.entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class OwnerEntity {
+public class OwnerEntity extends UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,12 +18,16 @@ public class OwnerEntity {
     private String netWorth;
     private String phoneNumber;
     private String age;
-    private String userName;
-    private String password;
 
-
-    @OneToMany(mappedBy = "owners")
+    @JsonIgnore
+    @OneToMany(mappedBy = "owners", cascade = CascadeType.ALL)
     private Set<TeamEntity> teams = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<RoleEntity> roles = new HashSet<>();
+
+
 
     public Set<RoleEntity> getRoles() {
         return roles;
@@ -30,9 +36,6 @@ public class OwnerEntity {
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
     }
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<RoleEntity> roles = new HashSet<>();
 
     public void addRole(RoleEntity role){
         this.roles.add(role);
@@ -43,30 +46,16 @@ public class OwnerEntity {
         role.getOwners().remove(this);
     }
 
-    public OwnerEntity(Long id, String fullName, String netWorth, String phoneNumber, String age, String userName, String password) {
+    public OwnerEntity(Long id, String fullName, String netWorth, String phoneNumber, String age) {
         this.id = id;
         this.fullName = fullName;
         this.netWorth = netWorth;
         this.phoneNumber = phoneNumber;
         this.age = age;
-        this.userName = userName;
-        this.password = password;
+
     }
 
     public OwnerEntity() {
-    }
-
-    @Override
-    public String toString() {
-        return "OwnerEntity{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", netWorth='" + netWorth + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", age='" + age + '\'' +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                '}';
     }
 
     public Set<TeamEntity> getTeams() {
@@ -117,20 +106,6 @@ public class OwnerEntity {
         this.age = age;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 }

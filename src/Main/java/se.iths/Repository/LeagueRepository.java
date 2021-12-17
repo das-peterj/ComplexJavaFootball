@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface LeagueRepository extends CrudRepository<LeagueEntity, Long> {
-    List<LeagueEntity> findByLeagueName(String name);
+    LeagueEntity findByLeagueName(String leagueName);
 }

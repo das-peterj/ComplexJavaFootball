@@ -26,12 +26,13 @@ public class OwnerService {
         this.roleRepository = roleRepository;
     }
 
-    public OwnerEntity createOwner (OwnerEntity ownerEntity){
-        ownerEntity.setPassword(passwordEncoder.encode(ownerEntity.getPassword()));
-        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_OWNER");
-        ownerEntity.addRole(roleToAdd);
-        return ownerRepository.save(ownerEntity);
-    }
+//    public OwnerEntity createOwner (OwnerEntity ownerEntity){
+//        ownerEntity.setPassword(passwordEncoder.encode(ownerEntity.getPassword()));
+//        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_OWNER");
+//        ownerEntity.addRole(roleToAdd);
+//        return ownerRepository.save(ownerEntity);
+//    }
+
     public void deleteOwner(Long id) {
         OwnerEntity foundOwner = ownerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         ownerRepository.deleteById(foundOwner.getId());
@@ -46,8 +47,7 @@ public class OwnerService {
         return ownerRepository.findAll();
     }
 
-//    public List<OwnerEntity> findOwnerByFullName(String fullName){
-//        return ownerRepository.findByFullName(fullName);
-//    }
-
+    public OwnerEntity findOwnerByFullName(String fullName){
+        return ownerRepository.findByFullName(fullName);
+    }
 }

@@ -1,6 +1,7 @@
 package se.iths.entitys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.tomcat.jni.User;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,7 +10,7 @@ import java.util.Set;
 
 
 @Entity
-public class PlayerEntity {
+public class PlayerEntity extends UserEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,16 +18,18 @@ public class PlayerEntity {
     private String fullName;
     private String position;
     private String marketValue;
-    private String userName;
-    private String password;
+
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="team_id", referencedColumnName = "id")
     private TeamEntity teams;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
+
+
 
     public void addRole(RoleEntity role) {
         this.roles.add(role);
@@ -38,13 +41,12 @@ public class PlayerEntity {
         role.getPlayers().remove(this);
     }
 
-    public PlayerEntity(Long id, String fullName, String position, String marketValue, String userName, String password) {
+    public PlayerEntity(Long id, String fullName, String position, String marketValue) {
         this.id = id;
         this.fullName = fullName;
         this.position = position;
         this.marketValue = marketValue;
-        this.userName = userName;
-        this.password = password;
+
     }
 
     public PlayerEntity() {
@@ -90,21 +92,6 @@ public class PlayerEntity {
         this.marketValue = marketValue;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public TeamEntity getTeams() {
         return teams;
