@@ -33,10 +33,6 @@ public class Sample_DataGeneretor implements ApplicationRunner {
     private TeamRepository teamRepository;
     private UserRepository userRepository;
 
-//    @Override
-//    public void run(ApplicationArguments args) throws Exception {
-//
-
     @Autowired
     public
         Sample_DataGeneretor(LeagueRepository leagueRepository, ManagerRepository managerRepository, OwnerRepository ownerRepository, PlayerRepository playerRepository, RoleRepository roleRepository, SponsorRepository sponsorRepository, TeamRepository teamRepository, UserRepository userRepository)
@@ -54,6 +50,8 @@ public class Sample_DataGeneretor implements ApplicationRunner {
         @Override
         @Transactional
         public void run (ApplicationArguments args){
+
+
             LeagueEntity league1 = new LeagueEntity(1L, "Premier League", "England");
             LeagueEntity league2 = new LeagueEntity(2L, "Bundesliga", "Germany");
             LeagueEntity league3 = new LeagueEntity(3L, "LaLiga", "Spain");
@@ -92,7 +90,6 @@ public class Sample_DataGeneretor implements ApplicationRunner {
             PlayerEntity player10 = new PlayerEntity(31L, "Zlatan Ibrahimovic", "ST", "40m");
             PlayerEntity player11 = new PlayerEntity(32L, "Robert Lewandowski", "ST", "110m");
             PlayerEntity player12 = new PlayerEntity(33L, "Andres Iniesta", "CM", "30m");
-
 
             teamRepository.save(team1);
             teamRepository.save(team2);

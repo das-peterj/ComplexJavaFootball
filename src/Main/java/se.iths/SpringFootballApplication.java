@@ -53,9 +53,9 @@ public class SpringFootballApplication {
             userService.createUser(new UserEntity("Peter", "pette", "1234",new HashSet<>()));
             userService.createUser(new UserEntity("Oscar", "ogge", "1234", new HashSet<>()));
 
-            userService.addRoleToUser("Muharem", "ADMIN");
-            userService.addRoleToUser("Peter", "USER");
-            userService.addRoleToUser("Oscar", "USER");
+//            userService.addRoleToUser("Muharem", "ADMIN");
+//            userService.addRoleToUser("Peter", "USER");
+//            userService.addRoleToUser("Oscar", "USER");
         };
     }
     @Bean

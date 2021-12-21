@@ -8,6 +8,8 @@ import se.iths.Repository.UserRepository;
 import se.iths.entitys.RoleEntity;
 import se.iths.entitys.UserEntity;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -30,6 +32,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     public UserEntity createUser (UserEntity userEntity){
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         RoleEntity roleToAdd = roleRepository.findByRole("USER");
