@@ -9,36 +9,33 @@ import java.util.*;
 public class TeamEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String teamValue;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(name="league_id", referencedColumnName = "id")
     private LeagueEntity leagues;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(name="owner_id", referencedColumnName = "id")
     private OwnerEntity owners;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "teams")
     private Set<PlayerEntity> players = new HashSet<>();
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "team")
-    private ManagerEntity managerEntity;
 
-    @JsonIgnore
+    @OneToOne(mappedBy = "team")
+    private ManagerEntity manager;
+
+
     @ManyToMany(mappedBy = "teams")
     private Set<SponsorEntity> sponsors = new HashSet<>();
 
-
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private List<SponsorEntity> sponsors;
 
     public TeamEntity(Long id, String name, String teamValue) {
         this.id = id;
@@ -73,10 +70,10 @@ public class TeamEntity {
         playerEntity.setTeams(this);
     }
 
-    public void addManager(ManagerEntity managerEntity) {
-        this.managerEntity = managerEntity;
-        managerEntity.setTeam(this);
-    }
+//    public void addManager(ManagerEntity managerEntity) {
+//        this.managerEntity = managerEntity;
+//        managerEntity.setTeam(this);
+//    }
 
     public void addSponsor(SponsorEntity sponsor) {
         sponsors.add(sponsor);
@@ -124,13 +121,13 @@ public class TeamEntity {
         this.players = players;
     }
 
-    public ManagerEntity getManagerEntity() {
-        return managerEntity;
-    }
-
-    public void setManagerEntity(ManagerEntity managerEntity) {
-        this.managerEntity = managerEntity;
-    }
+//    public ManagerEntity getManagerEntity() {
+//        return managerEntity;
+//    }
+//
+//    public void setManagerEntity(ManagerEntity managerEntity) {
+//        this.managerEntity = managerEntity;
+//    }
 
 
 }

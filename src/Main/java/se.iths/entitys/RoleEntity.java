@@ -1,6 +1,9 @@
 package se.iths.entitys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,22 +14,15 @@ public class RoleEntity{
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String role;
 
 
     @ManyToMany(mappedBy = "roles")
-    private Set<UserEntity> users = new HashSet<>();
+    @Getter(onMethod_ = @JsonIgnore)
+    private Set<UserEntity> users;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<OwnerEntity> owners = new HashSet<>();
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<ManagerEntity> managers = new HashSet<>();
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<PlayerEntity> players = new HashSet<>();
 
     public Set<UserEntity> getUsers() {
         return users;
@@ -57,33 +53,5 @@ public class RoleEntity{
     public void setRole(String role) {
         this.role = role;
     }
-
-    @JsonIgnore
-    public Set<OwnerEntity> getOwners() {
-        return owners;
-    }
-
-    public void setOwners(Set<OwnerEntity> owners) {
-        this.owners = owners;
-    }
-
-    @JsonIgnore
-    public Set<ManagerEntity> getManagers() {
-        return managers;
-    }
-
-    public void setManagers(Set<ManagerEntity> managers) {
-        this.managers = managers;
-    }
-
-    @JsonIgnore
-    public Set<PlayerEntity> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Set<PlayerEntity> players) {
-        this.players = players;
-    }
-
 
 }

@@ -8,10 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class ManagerEntity extends UserEntity{
+public class ManagerEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String fullName;
     private String phoneNumber;
@@ -19,14 +19,11 @@ public class ManagerEntity extends UserEntity{
     private String email;
 
 
-    @JsonIgnore
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "team_id", referencedColumnName = "id")
+    @JoinColumn(name = "team_id")
     private TeamEntity team;
 
-    @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<RoleEntity> roles = new HashSet<>();
 
 
     public ManagerEntity(Long id, String fullName, String phoneNumber, String age, String email) {
@@ -39,24 +36,6 @@ public class ManagerEntity extends UserEntity{
 
     public ManagerEntity() {
     }
-
-    public void addRole(RoleEntity role){
-        this.roles.add(role);
-        //role.getManagers().add(this);
-    }
-    public void removeRole(RoleEntity role){
-        roles.remove(role);
-        role.getManagers().remove(this);
-    }
-
-    public Set<RoleEntity> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
-    }
-
     public TeamEntity getTeam() {
         return team;
     }

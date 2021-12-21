@@ -28,9 +28,9 @@ public class ManagerService {
     }
 
     public ManagerEntity createManager(ManagerEntity managerEntity){
-        managerEntity.setPassword(passwordEncoder.encode(managerEntity.getPassword()));
-        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_MANAGER");
-        managerEntity.addRole(roleToAdd);
+//        managerEntity.setPassword(passwordEncoder.encode(managerEntity.getPassword()));
+//        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_MANAGER");
+//        managerEntity.addRole(roleToAdd);
         return managerRepository.save(managerEntity);
     }
     public void deleteManager(Long id) {

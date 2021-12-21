@@ -10,36 +10,20 @@ import java.util.Set;
 
 
 @Entity
-public class PlayerEntity extends UserEntity{
+public class PlayerEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String fullName;
     private String position;
     private String marketValue;
 
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="team_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="team_id")
     private TeamEntity teams;
 
-    @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<RoleEntity> roles = new HashSet<>();
-
-
-
-    public void addRole(RoleEntity role) {
-        this.roles.add(role);
-//        role.getPlayers().add(this);
-    }
-
-    public void removeRole(RoleEntity role) {
-        roles.remove(role);
-        role.getPlayers().remove(this);
-    }
 
     public PlayerEntity(Long id, String fullName, String position, String marketValue) {
         this.id = id;
@@ -52,13 +36,6 @@ public class PlayerEntity extends UserEntity{
     public PlayerEntity() {
     }
 
-    public Set<RoleEntity> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
-    }
 
     public Long getId() {
         return id;
@@ -91,7 +68,6 @@ public class PlayerEntity extends UserEntity{
     public void setMarketValue(String marketValue) {
         this.marketValue = marketValue;
     }
-
 
     public TeamEntity getTeams() {
         return teams;

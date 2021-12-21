@@ -14,7 +14,6 @@ public class LeagueEntity {
     private String leagueName;
     private String country;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "leagues")
     private Set<TeamEntity> teams = new HashSet<>();
 

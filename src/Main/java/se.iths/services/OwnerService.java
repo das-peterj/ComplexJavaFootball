@@ -26,12 +26,12 @@ public class OwnerService {
         this.roleRepository = roleRepository;
     }
 
-//    public OwnerEntity createOwner (OwnerEntity ownerEntity){
+    public OwnerEntity createOwner (OwnerEntity ownerEntity){
 //        ownerEntity.setPassword(passwordEncoder.encode(ownerEntity.getPassword()));
 //        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_OWNER");
 //        ownerEntity.addRole(roleToAdd);
-//        return ownerRepository.save(ownerEntity);
-//    }
+        return ownerRepository.save(ownerEntity);
+    }
 
     public void deleteOwner(Long id) {
         OwnerEntity foundOwner = ownerRepository.findById(id).orElseThrow(EntityNotFoundException::new);

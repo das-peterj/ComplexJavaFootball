@@ -2,12 +2,17 @@ package se.iths.Controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import se.iths.Repository.UserRepository;
 import se.iths.entitys.UserEntity;
 import se.iths.exceptions.NotFoundException;
 import se.iths.services.UserService;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("users")
@@ -21,6 +26,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/createUser")
+    @ResponseStatus(CREATED)
+    public ResponseEntity createUser( @RequestBody UserEntity userEntity) {
+        UserEntity createdUser = userService.createUser(userEntity);
+        return new ResponseEntity<>(createdUser, CREATED);
+    }
 
     @GetMapping()
     public ResponseEntity<Iterable<UserEntity>> findAllUsers() {

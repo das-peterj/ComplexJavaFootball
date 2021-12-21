@@ -27,9 +27,9 @@ public class PlayerService {
 
 
     public PlayerEntity createPlayer(PlayerEntity playerEntity){
-        playerEntity.setPassword(passwordEncoder.encode(playerEntity.getPassword()));
-        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_PLAYER");
-        playerEntity.addRole(roleToAdd);
+//        playerEntity.setPassword(passwordEncoder.encode(playerEntity.getPassword()));
+//        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_PLAYER");
+//        playerEntity.addRole(roleToAdd);
         return playerRepository.save(playerEntity);
     }
 
