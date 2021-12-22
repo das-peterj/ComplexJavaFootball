@@ -1,6 +1,9 @@
 package se.iths.entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -14,22 +17,18 @@ public class UserEntity {
     private String password;
 
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Set<RoleEntity> roles;
+    @ManyToOne
+    private RoleEntity roles;
 
     public UserEntity() {
 
     }
     public void addRole(RoleEntity role){
-        this.roles.add(role);
+        this.roles = role;
         role.getUsers().add(this);
     }
-    public void removeRole(RoleEntity role){
-        this.roles.remove(role);
-        role.getUsers().remove(this);
-    }
 
-    public UserEntity( String name, String userName, String password, Set<RoleEntity> roles) {
+    public UserEntity( String name, String userName, String password, RoleEntity roles) {
         this.name = name;
         this.userName = userName;
         this.password = password;
@@ -60,12 +59,13 @@ public class UserEntity {
         this.password = password;
     }
 
-    public Set<RoleEntity> getRoles() {
+    public RoleEntity getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<RoleEntity> roles) {
+    public void setRoles(RoleEntity roles) {
         this.roles = roles;
+
     }
 
     public String getName() {

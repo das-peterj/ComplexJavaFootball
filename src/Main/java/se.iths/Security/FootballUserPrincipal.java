@@ -22,11 +22,11 @@ public class FootballUserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<RoleEntity> roles = userEntity.getRoles();
-        Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles.size());
-        for (RoleEntity role : roles) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole().toUpperCase()));
-        }
+        RoleEntity roles = userEntity.getRoles();
+        Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>(1);
+        //for (RoleEntity role : roles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(roles.getRole().toUpperCase()));
+
         return grantedAuthorities;
     }
 

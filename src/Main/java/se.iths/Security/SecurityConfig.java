@@ -14,17 +14,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final FootballUserDetailsService footballUserDetailsService;
-   // private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
 
     public SecurityConfig(FootballUserDetailsService footballUserDetailsService) {
         this.footballUserDetailsService = footballUserDetailsService;
-      //  this.passwordEncoder = passwordEncoder;
+//        this.passwordEncoder = passwordEncoder();
+
     }
 
     @Bean
-    public DaoAuthenticationProvider AuthenticationProvider() {
-        DaoAuthenticationProvider provider =  new DaoAuthenticationProvider();
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(footballUserDetailsService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
         return provider;
@@ -37,14 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/home", "/sponsors", "/leagues","/teams", "/players", "/managers", "/owners").permitAll()
-//                .antMatchers("/players", "/players/*", "/players/*/*/*", "/home", "/application").hasRole("PLAYER")
-//                .antMatchers(
-//                        "/players", "/players/*", "/players/*/*/*",
-//                        "/managers", "/managers/*", "/managers/*/*").hasRole("MANAGER")
-//                .antMatchers(
-//                        "/players", "/players/*", "/players/*/*/*",
-//                        "/managers", "/managers/*", "/managers/*/*", "/owners", "/owners/*" , "/owners/*/*", "/admin").hasRole("OWNER")
+                .antMatchers("/home", "/teams", "/players", "/login", "/users/createAdmin", "/users").permitAll()
+                .antMatchers("/leagues", "/sponsors", "/managers", "/owners", "/users/createUser", "/application").hasAnyRole("USER", "ADMIN")
+                .antMatchers(
+                        "/players/*", "/players/*/*/*",
+                        "/managers/*", "/managers/*/*", "/owners/*", "/owners/*/*", "/admin",
+                        "/leagues/*", "/leagues/*/*", "/teams/*", "/teams/*/*",
+                        "/sponsors/*", "/sponsors/*/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -55,11 +55,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .permitAll();
     }
-
+}
 
 //
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
 //        return this.passwordEncoder;
 //    }
-}
+//}

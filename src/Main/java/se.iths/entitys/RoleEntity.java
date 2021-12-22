@@ -19,11 +19,12 @@ public class RoleEntity{
     private String role;
 
 
-    @ManyToMany(mappedBy = "roles")
-    @Getter(onMethod_ = @JsonIgnore)
-    private Set<UserEntity> users;
+    @OneToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<UserEntity> users = new HashSet<>();
 
+//@Getter(onMethod_ = @JsonIgnore)
 
+    @JsonIgnore
     public Set<UserEntity> getUsers() {
         return users;
     }
@@ -54,4 +55,7 @@ public class RoleEntity{
         this.role = role;
     }
 
+    public void addUsers(Set<UserEntity> users){
+        this.users = users;
+    }
 }

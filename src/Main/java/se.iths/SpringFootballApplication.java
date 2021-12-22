@@ -1,5 +1,6 @@
 package se.iths;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.tomcat.jni.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -48,10 +49,10 @@ public class SpringFootballApplication {
             roleService.createRole(new RoleEntity("ADMIN"));
             roleService.createRole(new RoleEntity("USER"));
 
+//            userService.createUser(new UserEntity("Muharem", "murre", "1234", ));
+//            userService.createUser(new UserEntity("Peter", "pette", "1234",new HashSet<>()));
+//            userService.createUser(new UserEntity("Oscar", "ogge", "1234", new HashSet<>()));
 
-            userService.createUser(new UserEntity("Muharem", "murre", "1234", new HashSet<>()));
-            userService.createUser(new UserEntity("Peter", "pette", "1234",new HashSet<>()));
-            userService.createUser(new UserEntity("Oscar", "ogge", "1234", new HashSet<>()));
 
 //            userService.addRoleToUser("Muharem", "ADMIN");
 //            userService.addRoleToUser("Peter", "USER");
