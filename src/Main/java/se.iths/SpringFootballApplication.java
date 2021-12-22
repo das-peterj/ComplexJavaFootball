@@ -59,8 +59,8 @@ public class SpringFootballApplication {
 //            userService.addRoleToUser("Oscar", "USER");
         };
     }
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 }

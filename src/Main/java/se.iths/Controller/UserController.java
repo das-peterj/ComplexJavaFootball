@@ -1,6 +1,7 @@
 package se.iths.Controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
     private final RoleRepository roleRepository;
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public UserController(UserRepository userRepository, UserService userService, RoleRepository roleRepository){
         this.userRepository = userRepository;
@@ -54,6 +56,10 @@ public class UserController {
     public ResponseEntity<UserEntity> createAdmin(@PathVariable String userName) {
         RoleEntity roleToAdd = roleRepository.findByRole("ADMIN");
         UserEntity foundUser = userRepository.findByUserName(userName);
+        // just troubleshooting why we're unable to log in.
+        if (encoder.matches("psg", foundUser.getPassword())) {
+            System.out.println("createAdmin, password is correct: " + foundUser.getPassword());
+        }
         foundUser.addRole(roleToAdd);
         userRepository.save(foundUser);
         return new ResponseEntity<>(foundUser, HttpStatus.OK);

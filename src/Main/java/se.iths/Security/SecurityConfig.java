@@ -22,12 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        this.passwordEncoder = passwordEncoder();
 
     }
-
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(footballUserDetailsService);
-        provider.setPasswordEncoder(new BCryptPasswordEncoder());
+        provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
@@ -38,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/home", "/teams", "/players", "/login", "/users/createAdmin", "/users").permitAll()
+                .antMatchers("/home", "/teams", "/players", "/login", "/users/createAdmin/*", "/users").permitAll()
                 .antMatchers("/leagues", "/sponsors", "/managers", "/owners", "/users/createUser", "/application").hasAnyRole("USER", "ADMIN")
                 .antMatchers(
                         "/players/*", "/players/*/*/*",
@@ -56,10 +59,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 }
-
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return this.passwordEncoder;
-//    }
-//}
