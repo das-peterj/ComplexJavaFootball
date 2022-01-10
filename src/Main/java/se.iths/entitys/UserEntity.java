@@ -9,6 +9,7 @@ import java.util.Set;
 
 @Entity
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,23 +18,28 @@ public class UserEntity {
     private String password;
 
 
-    @ManyToOne
-    private RoleEntity roles;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<RoleEntity> roles = new HashSet<>();
 
     public UserEntity() {
 
     }
     public void addRole(RoleEntity role){
-        this.roles = role;
+        roles.add(role);
         role.getUsers().add(this);
     }
 
-    public UserEntity( String name, String userName, String password, RoleEntity roles) {
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        this.roles = roles;
+    public void removeRole(RoleEntity role) {
+        roles.remove(role);
+        role.getUsers().remove(this);
     }
+
+//    public UserEntity( String name, String userName, String password, RoleEntity roles) {
+//        this.name = name;
+//        this.userName = userName;
+//        this.password = password;
+//        this.roles = roles;
+//    }
 
     public Long getId() {
         return id;
@@ -59,13 +65,12 @@ public class UserEntity {
         this.password = password;
     }
 
-    public RoleEntity getRoles() {
+    public Set<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void setRoles(RoleEntity roles) {
+    public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
-
     }
 
     public String getName() {

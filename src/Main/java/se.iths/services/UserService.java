@@ -38,7 +38,7 @@ public class UserService {
         RoleEntity roleToAdd = roleRepository.findByRole("USER");
         userEntity.addRole(roleToAdd);
         return userRepository.save(userEntity);
-//        return userEntity;
+
     }
 
     public void addRoleToUser(String username, String roleName) {

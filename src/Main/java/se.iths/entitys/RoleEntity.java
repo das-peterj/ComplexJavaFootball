@@ -19,8 +19,8 @@ public class RoleEntity{
     private String role;
 
 
-    @OneToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<UserEntity> users = new HashSet<>();
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserEntity> users;
 
 //@Getter(onMethod_ = @JsonIgnore)
 

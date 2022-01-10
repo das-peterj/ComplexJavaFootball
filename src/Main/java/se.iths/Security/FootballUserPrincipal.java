@@ -6,7 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import se.iths.entitys.RoleEntity;
 import se.iths.entitys.UserEntity;
 
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
@@ -22,11 +24,13 @@ public class FootballUserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        RoleEntity roles = userEntity.getRoles();
-        Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>(1);
-        //for (RoleEntity role : roles) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(roles.getRole().toUpperCase()));
+        Set<RoleEntity> roles = userEntity.getRoles();
+        Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles.size());
+        for (RoleEntity role : roles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole().toUpperCase()));
 
+            System.out.println(Arrays.toString(grantedAuthorities.toArray()));
+        }
         return grantedAuthorities;
     }
 

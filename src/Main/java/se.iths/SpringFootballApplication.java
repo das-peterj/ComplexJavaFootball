@@ -12,6 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import se.iths.Controller.SponsorController;
 import se.iths.Repository.UserRepository;
 import se.iths.Repository.LeagueRepository;
@@ -37,17 +39,23 @@ import java.util.HashSet;
 
 
 @SpringBootApplication
-@Transactional
+//@RestController
+//@Transactional
 public class SpringFootballApplication {
+
+//    @RequestMapping("/")
 
     public static void main(String[] args) {
         SpringApplication.run(SpringFootballApplication.class, args);
     }
+
     @Bean
-    public CommandLineRunner setUpRole(UserService userService, RoleService roleService){
+    public CommandLineRunner setUpRole(RoleRepository roleRepository){
         return (args) -> {
-            roleService.createRole(new RoleEntity("ADMIN"));
-            roleService.createRole(new RoleEntity("USER"));
+                roleRepository.save((new RoleEntity("ADMIN")));
+                roleRepository.save((new RoleEntity("USER")));
+//            roleService.createRole(new RoleEntity("ADMIN"));
+//            roleService.createRole(new RoleEntity("USER"));
 
 //            userService.createUser(new UserEntity("Muharem", "murre", "1234", ));
 //            userService.createUser(new UserEntity("Peter", "pette", "1234",new HashSet<>()));

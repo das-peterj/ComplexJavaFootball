@@ -9,6 +9,7 @@ import se.iths.entitys.UserEntity;
 
 @Service
 public class FootballUserDetailsService implements UserDetailsService {
+
     private final UserRepository userRepository;
 
 

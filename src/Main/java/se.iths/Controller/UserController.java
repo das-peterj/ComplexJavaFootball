@@ -55,12 +55,14 @@ public class UserController {
     @ResponseStatus(CREATED)
     public ResponseEntity<UserEntity> createAdmin(@PathVariable String userName) {
         RoleEntity roleToAdd = roleRepository.findByRole("ADMIN");
+        RoleEntity roleToRemove = roleRepository.findByRole("USER");
         UserEntity foundUser = userRepository.findByUserName(userName);
         // just troubleshooting why we're unable to log in.
         if (encoder.matches("psg", foundUser.getPassword())) {
             System.out.println("createAdmin, password is correct: " + foundUser.getPassword());
         }
         foundUser.addRole(roleToAdd);
+        foundUser.removeRole(roleToRemove);
         userRepository.save(foundUser);
         return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }
