@@ -1,14 +1,14 @@
-#Installation instructions for DOCKER
+# Installation instructions for DOCKER
 
 - Navigate to the right map with, cd
 - Docker image build -t football-project .
 - Docker image ls (To check if there's any image)
 - Docker container run -p 8080:8080 football-project
 ___
-#Endpoints
+# Endpoints
 Base url http://localhost:8080
 
-##- Create (POST):
+## - Create (POST):
     - /sponsor
       - {
         "name" : "Coca cola"
@@ -51,7 +51,7 @@ Base url http://localhost:8080
         }
       
 
-##- Read (GET):
+## - Read (GET):
     - /sponsors
         - /sponsors/{id}
     - /managers
@@ -65,14 +65,14 @@ Base url http://localhost:8080
     - /leagues
         - /leagues/{id}
 
-##- Update (PUT):
+## - Update (PUT):
     -/sponsors/{sponsor_id}/addSponsorToTeam/{team_id}
     -/managers/{manager_id}/addManagerToTeam/{team_id}
     -/teams/{team_id}/addTeamToLeague/{league_id}
     -/players/{player_id}/addPlayerToTeam/{team_id}
     -/owners/{owner_id}/addOwnerToTeam/{team_id}
 
-##- Delete (DELETE)
+## - Delete (DELETE)
     - /sponsors/{id}
     - /managers/{id}
     - /teams/{id}
