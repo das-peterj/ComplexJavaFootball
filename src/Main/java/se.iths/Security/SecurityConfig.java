@@ -15,19 +15,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final FootballUserDetailsService footballUserDetailsService;
-//    private final PasswordEncoder passwordEncoder;
+
 
 
     public SecurityConfig(FootballUserDetailsService footballUserDetailsService) {
         this.footballUserDetailsService = footballUserDetailsService;
-//        this.passwordEncoder = passwordEncoder();
+
 
     }
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -45,7 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/home", "/teams", "/players", "/login", "/users/createAdmin/*", "/users").permitAll()
-//                .antMatchers("/leagues", "/sponsors", "/managers", "/owners", "/users/createUser", "/application").hasAnyRole("USER", "ADMIN")
                 .antMatchers(
                         "/players/*", "/players/*/*/*",
                         "/managers/*", "/managers/*/*", "/owners/*", "/owners/*/*", "/admin",

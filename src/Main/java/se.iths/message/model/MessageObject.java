@@ -23,6 +23,7 @@ public class MessageObject implements Serializable {
     public MessageObject() {
     }
 
+
     public UUID getId() {
         return id;
     }

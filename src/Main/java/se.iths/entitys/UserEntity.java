@@ -34,13 +34,6 @@ public class UserEntity {
         role.getUsers().remove(this);
     }
 
-//    public UserEntity( String name, String userName, String password, RoleEntity roles) {
-//        this.name = name;
-//        this.userName = userName;
-//        this.password = password;
-//        this.roles = roles;
-//    }
-
     public Long getId() {
         return id;
     }

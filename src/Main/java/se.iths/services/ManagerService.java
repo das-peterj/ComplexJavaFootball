@@ -28,11 +28,9 @@ public class ManagerService {
     }
 
     public ManagerEntity createManager(ManagerEntity managerEntity){
-//        managerEntity.setPassword(passwordEncoder.encode(managerEntity.getPassword()));
-//        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_MANAGER");
-//        managerEntity.addRole(roleToAdd);
         return managerRepository.save(managerEntity);
     }
+
     public void deleteManager(Long id) {
         ManagerEntity foundManager = managerRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         managerRepository.deleteById(foundManager.getId());
@@ -47,9 +45,6 @@ public class ManagerService {
         return managerRepository.findAll();
     }
 
-//    public List<ManagerEntity> findManagerByFullName(String fullName){
-//        return managerRepository.findByFullName(fullName);
-//    }
     public ManagerEntity findManagerByUserName(String fullName){
         return managerRepository.findByFullName(fullName);
     }

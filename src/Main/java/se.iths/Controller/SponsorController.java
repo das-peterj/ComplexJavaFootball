@@ -72,7 +72,6 @@ public class SponsorController {
         TeamEntity foundTeam = teamService.findTeamById(teamId);
 
         foundSponsor.addTeam(foundTeam);
-//        System.out.println(foundSponsor.getName() + foundTeam.getName());
 
         return sponsorRepository.save(foundSponsor);
     }

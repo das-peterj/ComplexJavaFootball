@@ -29,11 +29,11 @@ public class OwnerController {
         this.ownerRepository = ownerRepository;
     }
 
-//    @PostMapping("")
-//    public ResponseEntity<OwnerEntity> createOwner(@RequestBody OwnerEntity owner){
-//        OwnerEntity createdOwner = ownerService.createOwner(owner);
-//        return new ResponseEntity<>(createdOwner, HttpStatus.CREATED);
-//    }
+    @PostMapping("")
+    public ResponseEntity<OwnerEntity> createOwner(@RequestBody OwnerEntity owner){
+        OwnerEntity createdOwner = ownerService.createOwner(owner);
+        return new ResponseEntity<>(createdOwner, HttpStatus.CREATED);
+    }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteOwner(@PathVariable Long id) {
@@ -76,17 +76,4 @@ public class OwnerController {
         foundTeam.addOwner(foundOwner);
         return ownerRepository.save(foundOwner);
     }
-
-    /*
-    @GetMapping("findByFullName/{name}")
-    public ResponseEntity<List<OwnerEntity>> findOwnerByFullName (@PathVariable String name){
-        List<OwnerEntity> Owner = ownerService.findOwnerByFullName(name);
-        String errOwnerNotfound = "{\"Error\": \"No Owner found }";
-
-        if(Owner == null){
-            throw new NotFoundException(errOwnerNotfound);
-        }
-        return new ResponseEntity<>(Owner,HttpStatus.OK);
-    }*/
-
 }

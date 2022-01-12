@@ -27,9 +27,6 @@ public class OwnerService {
     }
 
     public OwnerEntity createOwner (OwnerEntity ownerEntity){
-//        ownerEntity.setPassword(passwordEncoder.encode(ownerEntity.getPassword()));
-//        RoleEntity roleToAdd = roleRepository.findByRole("ROLE_OWNER");
-//        ownerEntity.addRole(roleToAdd);
         return ownerRepository.save(ownerEntity);
     }
 

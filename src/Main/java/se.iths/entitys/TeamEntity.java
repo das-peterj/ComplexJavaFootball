@@ -70,16 +70,10 @@ public class TeamEntity {
         playerEntity.setTeams(this);
     }
 
-//    public void addManager(ManagerEntity managerEntity) {
-//        this.managerEntity = managerEntity;
-//        managerEntity.setTeam(this);
-//    }
 
     public void addSponsor(SponsorEntity sponsor) {
         sponsors.add(sponsor);
     }
-    //behövs nog ändras lite om en sponsor ska kunna vara sponsor på flera teams
-    // då detta antagligen skriver över den nuvarande sponsoren
 
     public Long getId() {
         return id;
@@ -120,14 +114,5 @@ public class TeamEntity {
     public void setPlayers(Set<PlayerEntity> players) {
         this.players = players;
     }
-
-//    public ManagerEntity getManagerEntity() {
-//        return managerEntity;
-//    }
-//
-//    public void setManagerEntity(ManagerEntity managerEntity) {
-//        this.managerEntity = managerEntity;
-//    }
-
 
 }

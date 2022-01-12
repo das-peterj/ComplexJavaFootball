@@ -1,4 +1,4 @@
-package se.iths.Util;
+/*package se.iths.Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -132,5 +132,4 @@ public class Sample_DataGeneretor implements ApplicationRunner {
 
         }
     }
-
-
+*/

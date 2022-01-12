@@ -59,7 +59,6 @@ public class PlayerController {
     public ResponseEntity<Iterable<PlayerEntity>> findAllPlayers() {
         Iterable<PlayerEntity> allPlayers = playerService.findAllPlayers();
         String errPlayersNotFound = "{\"Error\": \"No players found}";
-
         if(allPlayers == null) {
             throw new NotFoundException(errPlayersNotFound);
         }
@@ -68,27 +67,11 @@ public class PlayerController {
 
     @PutMapping("/{playerId}/addPlayerToTeam/{teamId}")
     public PlayerEntity addPlayerToTeam(@PathVariable Long playerId, @PathVariable Long teamId) {
-//        PlayerEntity foundPlayer = playerRepository.findById(playerId).get();
         PlayerEntity foundPlayer = playerService.findPlayerById(playerId);
-//        TeamEntity foundTeam = teamRepository.findById(teamId).get();
         TeamEntity foundTeam = teamService.findTeamById(teamId);
 
         foundPlayer.addTeam(foundTeam);
         return playerRepository.save(foundPlayer);
     }
-
-    /*
-    @GetMapping("findByFullName/{name}")
-    public ResponseEntity<List<PlayerEntity>> findPlayerByFullName (@PathVariable String name){
-        List<PlayerEntity> Player = playerService.findPlayerByFullName(name);
-        String errOwnerNotfound = "{\"Error\": \"No Owner found }";
-
-        if(Player == null){
-            throw new NotFoundException(errOwnerNotfound);
-        }
-        return new ResponseEntity<>(Player,HttpStatus.OK);
-    }*/
-
-
 
 }

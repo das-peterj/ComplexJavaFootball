@@ -74,18 +74,6 @@ public class ManagerController {
         foundManager.addTeam(foundTeam);
         return managerRepository.save(foundManager);
     }
-
-   /* @GetMapping("/findByFullName/{name}")
-    public ResponseEntity<List<ManagerEntity>> findManagerByFullName(@PathVariable String name){
-        List<ManagerEntity> Manager = managerService.findManagerByFullName(name);
-        String errManagerNotfound = "{\"Error\": \"No Manager found }";
-
-        if(Manager == null){
-            throw new NotFoundException(errManagerNotfound);
-        }
-        return new ResponseEntity<>(Manager,HttpStatus.OK);
-    }*/
-
 }
 
 

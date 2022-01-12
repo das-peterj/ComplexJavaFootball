@@ -22,8 +22,6 @@ public class RoleEntity{
     @ManyToMany(mappedBy = "roles")
     private Set<UserEntity> users;
 
-//@Getter(onMethod_ = @JsonIgnore)
-
     @JsonIgnore
     public Set<UserEntity> getUsers() {
         return users;
