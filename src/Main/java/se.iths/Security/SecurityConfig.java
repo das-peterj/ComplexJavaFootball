@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/managers/*", "/managers/*/*", "/owners/*", "/owners/*/*", "/admin",
                         "/leagues/*", "/leagues/*/*", "/teams/*", "/teams/*/*",
                         "/sponsors/*", "/sponsors/*/*").hasAuthority("ADMIN")
-                .anyRequest().authenticated()
+
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()

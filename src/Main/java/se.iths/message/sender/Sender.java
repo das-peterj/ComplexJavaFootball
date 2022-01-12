@@ -21,10 +21,10 @@ public class Sender {
     @Scheduled(fixedRate = 2000)
     public void sendMessage() {
 
-        System.out.println("Sending message...");
-        MessageObject messageObject = new MessageObject(UUID.randomUUID(), "Hello from football_queue!", LocalDateTime.now());
-        jmsTemplate.convertAndSend(JmsConfig.football_queue, messageObject);
-        System.out.println("Message sent!");
+            System.out.println("Sending message...");
+            MessageObject messageObject = new MessageObject(UUID.randomUUID(), "Hello from football_queue!", LocalDateTime.now());
+            jmsTemplate.convertAndSend(JmsConfig.football_queue, messageObject);
+            System.out.println("Message sent!");
 
     }
 
