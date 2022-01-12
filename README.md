@@ -49,6 +49,11 @@ Base url http://localhost:8080
         "leagueName" : "PremierLeauge",
         "country" : "England"
         }
+    - /users
+        - {
+	"name" : "Lionel Messi",
+	"userName" : "messi",
+	"password" : "psg" }
       
 
 ## - Read (GET):
@@ -64,6 +69,8 @@ Base url http://localhost:8080
         - /owners/{id}
     - /leagues
         - /leagues/{id}
+    - /users
+        -/users/createAdmin/{userName}
 
 ## - Update (PUT):
     -/sponsors/{sponsor_id}/addSponsorToTeam/{team_id}
