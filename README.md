@@ -1,9 +1,11 @@
 # Installation instructions for DOCKER
 
+- Click on Maven in IntelliJ on the right sidebar. Then click on package.
+- Open Powershell
 - Navigate to the right map with, cd
-- Docker image build -t football-project .
-- Docker image ls (To check if there's any image)
-- Docker container run -p 8080:8080 football-project
+- ``Docker image build -t football-project .``
+- ``Docker image ls`` (To check if there's any image)
+- ``Docker container run -p 8080:8080 football-project``
 ___
 # Endpoints
 Base url http://localhost:8080
