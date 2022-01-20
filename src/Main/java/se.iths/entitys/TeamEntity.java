@@ -14,12 +14,12 @@ public class TeamEntity {
     private String name;
     private String teamValue;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="league_id", referencedColumnName = "id")
     private LeagueEntity leagues;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="owner_id", referencedColumnName = "id")
     private OwnerEntity owners;
@@ -28,11 +28,11 @@ public class TeamEntity {
     @OneToMany(mappedBy = "teams")
     private Set<PlayerEntity> players = new HashSet<>();
 
-
+    @JsonIgnore
     @OneToOne(mappedBy = "team")
     private ManagerEntity manager;
 
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "teams")
     private Set<SponsorEntity> sponsors = new HashSet<>();
 

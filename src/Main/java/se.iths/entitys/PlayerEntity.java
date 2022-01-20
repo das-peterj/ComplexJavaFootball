@@ -20,6 +20,7 @@ public class PlayerEntity {
     private String marketValue;
 
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="team_id")
     private TeamEntity teams;

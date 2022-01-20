@@ -40,13 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/home", "/teams", "/players", "/login", "/users/createAdmin/*", "/users").permitAll()
+                .antMatchers("/home", "/login", "/users").permitAll()
+                .antMatchers("/players", "/managers", "/sponsors", "/teams", "/leagues", "/owners").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(
-                        "/players/*", "/players/*/*/*",
+                        "/players/*", "/players/*/*",
                         "/managers/*", "/managers/*/*", "/owners/*", "/owners/*/*", "/admin",
                         "/leagues/*", "/leagues/*/*", "/teams/*", "/teams/*/*",
                         "/sponsors/*", "/sponsors/*/*").hasAuthority("ADMIN")
-
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()

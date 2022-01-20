@@ -9,10 +9,11 @@ import java.util.Set;
 public class LeagueEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String leagueName;
     private String country;
+
 
     @OneToMany(mappedBy = "leagues")
     private Set<TeamEntity> teams = new HashSet<>();
